@@ -38,10 +38,10 @@ class Path
 	 */
 	static function GetFullPath($path) {
 		$path = self::NormalizePath($path);
-		if (substr($path, 1) === DIRECTORY_SEPARATOR || realpath($path) === false) {
-			return self::NormalizePath(getcwd() . DIRECTORY_SEPARATOR . $path);
-		} else {
-			return realpath($path);
-		}
+		if ((is_file($path) || is_dir($path) || is_link($path))
+			&& dirname($path) !== "." 
+			&& dirname($path) !== DIRECTORY_SEPARATOR)
+			return $path;
+		return self::NormalizePath(getcwd() . DIRECTORY_SEPARATOR . $path);
 	}
 }
