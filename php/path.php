@@ -16,9 +16,17 @@ class Path
 		return $path;
 	}
 
+	/**
+	 * Removes a query string from the end of the specified string.
+	 * @param string @uri The string from which the query string is to be removed.
+	 * @return string The string without query string.
+	 */
 	static function RemoveQueryString($uri) {
-		$queryStringPos = strpos($uri, "?");
-		$uri = substr($uri, 0, $queryStringPos);
+		$pos = strpos($uri, "?");
+		if ($pos === FALSE)
+			return $uri;
+
+		$uri = substr($uri, 0, $pos);
 		return $uri;
 	}
 

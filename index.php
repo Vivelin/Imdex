@@ -2,6 +2,8 @@
 spl_autoload_register(function ($class) {
     include 'php/' . $class . '.php';
 });
+
+$requestDir = Path::RemoveQueryString($_SERVER["REQUEST_URI"]);
 ?>
 
 <!DOCTYPE html>
@@ -21,8 +23,10 @@ spl_autoload_register(function ($class) {
 		<div class="span10">
 			<h1>Hi</h1>
 			<dl>
-				<dt>Current directory
-				<dd><p><?php echo Path::GetFullPath($_SERVER["SCRIPT_NAME"]);?> 
+				<dt>Requested directory
+				<dd><?php echo $requestDir;?> 
+				<dt>Full directory
+				<dd><?php echo Path::GetFullPath($requestDir);?> 
 			</dl>
 			<pre>
 <?php print_r($_SERVER);?>
