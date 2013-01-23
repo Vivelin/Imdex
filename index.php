@@ -28,9 +28,6 @@ $requestDir = Path::RemoveQueryString($_SERVER["REQUEST_URI"]);
 				<dt>Full directory
 				<dd><?php echo Path::GetFullPath($requestDir);?> 
 			</dl>
-			<pre>
-<?php print_r($_SERVER);?>
-			</pre>
 		</div>
 	</div>
 </div>

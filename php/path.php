@@ -37,9 +37,9 @@ class Path
 	 * @return string The full, absolute path.
 	 */
 	static function GetFullPath($path) {
-		$path = normalizePath($path);
+		$path = self::NormalizePath($path);
 		if (realpath($path) === false) {
-			return normalizePath(getcwd() . DIRECTORY_SEPARATOR . $path);
+			return self::NormalizePath(getcwd() . DIRECTORY_SEPARATOR . $path);
 		} else {
 			return realpath($path);
 		}
