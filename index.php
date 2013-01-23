@@ -3,7 +3,15 @@ spl_autoload_register(function ($class) {
     include 'php/' . $class . '.php';
 });
 
+function print_nav($folders) {
+	foreach ($folders as $value) {
+		echo "<li><a href=\"{$value}\">{$value}</a>";
+	}	
+}
+
 $requestDir = Path::RemoveQueryString($_SERVER["REQUEST_URI"]);
+$imdex = new Imdex($requestDir);
+
 ?>
 
 <!DOCTYPE html>
@@ -16,8 +24,8 @@ $requestDir = Path::RemoveQueryString($_SERVER["REQUEST_URI"]);
 		<div class="span2">
 			<ul class="nav nav-list">
 				<li class="nav-header">CURRENT FOLDER
-				<li><a href="..">Go up</a>
-				<li><a href="img">img</a>
+				<?php if ($imdex->CanGoUp()) { ?><li><a href="..">Go up</a><?php } ?> 
+				<?php print_nav($imdex->Folders()); ?>
 			</ul>
 		</div>
 		<div class="span10">

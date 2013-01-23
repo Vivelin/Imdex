@@ -38,7 +38,7 @@ class Path
 	 */
 	static function GetFullPath($path) {
 		$path = self::NormalizePath($path);
-		if (realpath($path) === false) {
+		if (substr($path, 1) === DIRECTORY_SEPARATOR || realpath($path) === false) {
 			return self::NormalizePath(getcwd() . DIRECTORY_SEPARATOR . $path);
 		} else {
 			return realpath($path);
