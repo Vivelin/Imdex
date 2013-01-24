@@ -32,15 +32,16 @@ $imdex = new Imdex($requestDir);
 
 <!DOCTYPE html>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Imdex</title>
 <link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
 <link href="/css/base.css" rel="stylesheet" media="screen">
+<link href="/css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
 
 <div class="navbar navbar-static-top">
 	<div class="navbar-inner">
-		<a class="brand">Imdex</a>
 		<ul class="nav">
-			<li class="active"><a href="/">Browse</a>
+			<li class="active"><a href=".">Browse</a>
 		</ul>
 	</div>
 </div>
@@ -56,6 +57,7 @@ $imdex = new Imdex($requestDir);
 			</ul>
 		</div>
 		<div class="span10">
+			<h3><?php echo $imdex->Name();?></h3>
 		<?php if ($imdex->HasImages()) { ?> 
 			<ul class="thumbnails">
 				<?php print_thumbs($imdex->Images()); ?> 

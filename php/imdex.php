@@ -12,6 +12,15 @@ class Imdex
 		$this->basedir = Path::GetFullPath($basedir);
 	}
 
+	public function Name() {
+		$name = basename($this->basedir);
+		if ($name === "") {
+			$name = "/";
+		}
+		
+		return $name;
+	}
+
 	/**
 	 * Determines whether you can go up or not.
 	 * @return bool False if the base directory is the current folder, otherwise true.
