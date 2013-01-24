@@ -1,8 +1,7 @@
-<!DOCTYPE html>
 <?php
 include 'php/path.php';
-
-if (is_file(Path::GetFullPath($_SERVER["SCRIPT_NAME"])))
+$req = Path::GetFullPath($_SERVER["SCRIPT_NAME"]);
+if (is_file($req))
 	return false;
 else
 	require_once '/index.php';

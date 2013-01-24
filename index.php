@@ -5,8 +5,24 @@ spl_autoload_register(function ($class) {
 
 function print_nav($folders) {
 	foreach ($folders as $value) {
-		echo "<li><a href=\"{$value}\">{$value}</a>";
+		echo "<li"; 
+		if (!((new Imdex($value))->HasImages()))
+			echo " class=\"disabled\"";
+		echo "><a href=\"{$value}/\">{$value}</a>";
 	}	
+}
+
+function print_thumbs($files) {
+	foreach ($files as $value) {
+		echo <<<HTML
+<li class="span4">
+	<a href="{$value}" class="thumbnail">
+		<img src="{$value}" alt="{$value}" title="{$value}">
+	</a>
+</li>
+
+HTML;
+	}
 }
 
 $requestDir = Path::RemoveQueryString($_SERVER["REQUEST_URI"]);
@@ -18,24 +34,35 @@ $imdex = new Imdex($requestDir);
 <meta charset="utf-8">
 <title>Imdex</title>
 <link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link href="/css/base.css" rel="stylesheet" media="screen">
 
-<div class="container">
-	<div class="row">
+<div class="navbar navbar-static-top">
+	<div class="navbar-inner">
+		<a class="brand">Imdex</a>
+		<ul class="nav">
+			<li class="active"><a href="/">Browse</a>
+		</ul>
+	</div>
+</div>
+
+<div id="container" class="container-fluid">
+	<div class="row-fluid">
 		<div class="span2">
 			<ul class="nav nav-list">
-				<li class="nav-header">CURRENT FOLDER
-				<?php if ($imdex->CanGoUp()) { ?><li><a href="..">Go up</a><?php } ?> 
-				<?php print_nav($imdex->Folders()); ?>
+			<?php if ($imdex->CanGoUp()) { ?> 
+				<li><a href="..">Go up</a>
+			<?php } ?> 
+			<?php print_nav($imdex->Folders()); ?> 
 			</ul>
 		</div>
 		<div class="span10">
-			<h1>Hi</h1>
-			<dl>
-				<dt>Requested directory
-				<dd><?php echo $requestDir;?> 
-				<dt>Full directory
-				<dd><?php echo Path::GetFullPath($requestDir);?> 
-			</dl>
+		<?php if ($imdex->HasImages()) { ?> 
+			<ul class="thumbnails">
+				<?php print_thumbs($imdex->Images()); ?> 
+			</ul>
+		<?php } else { ?> 
+			<p class="muted">No images
+		<?php } ?> 
 		</div>
 	</div>
 </div>

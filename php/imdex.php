@@ -2,6 +2,8 @@
 class Imdex
 {
 	private $basedir;
+	private $folders;
+	private $images;
 
 	/**
 	 * Initializes a new instance of the Imdex class.
@@ -19,15 +21,39 @@ class Imdex
 	}
 
 	/**
-	 * Lists all subfolders in the current directory.
+	 * Lists all subfolders with images in the current directory.
 	 * @return array An array containing the basenames of subfolders.
 	 */
 	public function Folders() {
-		$folders = glob($this->basedir . DIRECTORY_SEPARATOR . "*", GLOB_ONLYDIR);
-		foreach ($folders as &$value) {
-			$value = basename($value);
+		if ($this->folders === NULL) {
+			$this->folders = glob($this->basedir . DIRECTORY_SEPARATOR . "*", GLOB_ONLYDIR);
+			foreach ($this->folders as &$value) {
+				$value = basename($value);
+			}
+			unset($value);
 		}
-		unset($value);
-		return $folders;
+		return $this->folders;
+	}
+
+	/**
+	 * Lists all images in the current directory.
+	 */
+	public function Images() {
+		if ($this->images === NULL) {
+			$this->images = glob($this->basedir . DIRECTORY_SEPARATOR . "*.{png,jpg,jpeg,gif}", GLOB_BRACE);
+			foreach ($this->images as &$value) {
+				$value = basename($value);
+			}
+			unset($value);
+		}
+		return $this->images;
+	}
+
+	/**
+	 * Determines whether this directory has images or not.
+	 * @return bool True if the directory contains images, otherwise false
+	 */
+	public function HasImages() {
+		return (count(self::Images()) > 0);
 	}
 }
