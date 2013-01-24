@@ -12,13 +12,25 @@ class Imdex
 		$this->basedir = Path::GetFullPath($basedir);
 	}
 
+	/**
+	 * Returns the name of the current directory.
+	 * @return string The basename of the current directory.
+	 */
 	public function Name() {
-		$name = basename($this->basedir);
-		if ($name === "") {
-			$name = "/";
-		}
-		
+		$name = basename($this->basedir);		
 		return $name;
+	}
+
+	/**
+	 * The parent folder.
+	 * @return mixed An Imdex object that represents the parent directory, or FALSE if you can't go
+	 * up a directory.
+	 */
+	public function Parent() {
+		if (!self::CanGoUp())
+			return FALSE;
+
+		return new Imdex(dirname($this->basedir));
 	}
 
 	/**

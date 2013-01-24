@@ -3,8 +3,13 @@ spl_autoload_register(function ($class) {
     include 'php/' . $class . '.php';
 });
 
-function print_nav($folders) {
-	foreach ($folders as $value) {
+function print_nav($imdex) {
+	if ($imdex->CanGoUp()) {
+		$parent = $imdex->Parent()->Name();
+		echo "<li><a href=\"..\"><i class=\"icon-chevron-left\"></i> {$parent}</a>";
+	}
+
+	foreach ($imdex->Folders() as $value) {
 		echo "<li"; 
 		if (!((new Imdex($value))->HasImages()))
 			echo " class=\"disabled\"";
@@ -49,21 +54,16 @@ $imdex = new Imdex($requestDir);
 <div id="container" class="container-fluid">
 	<div class="row-fluid">
 		<div class="span2">
-			<ul class="nav nav-list">
-			<?php if ($imdex->CanGoUp()) { ?> 
-				<li><a href="..">Go up</a>
-			<?php } ?> 
-			<?php print_nav($imdex->Folders()); ?> 
+			<ul class="nav nav-list well">
+				<li class="nav-header"><?php echo $imdex->Name();?> 
+				<?php print_nav($imdex); ?> 
 			</ul>
 		</div>
 		<div class="span10">
-			<h3><?php echo $imdex->Name();?></h3>
 		<?php if ($imdex->HasImages()) { ?> 
 			<ul class="thumbnails">
 				<?php print_thumbs($imdex->Images()); ?> 
 			</ul>
-		<?php } else { ?> 
-			<p class="muted">No images
 		<?php } ?> 
 		</div>
 	</div>
