@@ -15,6 +15,10 @@ class Imdex
 		$this->ignoredFolders = array("/css", "/img", "/js", "/php");
 	}
 
+	public function IsReal() {
+		return is_dir($this->basedir);
+	}
+
 	/**
 	 * Returns the name of the current directory.
 	 * @return string The basename of the current directory.

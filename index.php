@@ -64,7 +64,11 @@ $imdex = new Imdex($requestDir);
 		<?php } ?> 
 		</div>
 		<div class="span10">
-		<?php if ($imdex->HasImages()) { ?> 
+		<?php if (!$imdex->IsReal()) { ?>
+			<div class="alert">
+				The requested directory does not exist.
+			</div>
+		<?php } else if ($imdex->HasImages()) { ?> 
 			<ul class="thumbnails">
 				<?php print_thumbs($imdex->Images()); ?> 
 			</ul>
