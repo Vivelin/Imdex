@@ -14,7 +14,7 @@ function print_nav($imdex) {
 		if (!((new Imdex($value))->HasImages()))
 			echo " class=\"disabled\"";
 		echo "><a href=\"{$value}/\">{$value}</a>";
-	}	
+	}
 }
 
 function print_thumbs($files) {
@@ -54,16 +54,22 @@ $imdex = new Imdex($requestDir);
 <div id="container" class="container-fluid">
 	<div class="row-fluid">
 		<div class="span2">
+		<?php if ($imdex->HasFolders() || $imdex->CanGoUp()) { ?> 
 			<ul class="nav nav-list well">
 				<li class="nav-header"><?php echo $imdex->Name();?> 
 				<?php print_nav($imdex); ?> 
 			</ul>
+		<?php } else if (!$imdex->HasImages()) { ?>
+			<a class="btn btn-block" href="."><i class="icon-refresh"></i> Refresh</a>
+		<?php } ?> 
 		</div>
 		<div class="span10">
 		<?php if ($imdex->HasImages()) { ?> 
 			<ul class="thumbnails">
 				<?php print_thumbs($imdex->Images()); ?> 
 			</ul>
+		<?php } else { ?> 
+			<p class="muted">There is nothing to display.
 		<?php } ?> 
 		</div>
 	</div>

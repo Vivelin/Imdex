@@ -1,6 +1,7 @@
 <?php
 class Imdex
 {
+	private $ignoredFolders;
 	private $basedir;
 	private $folders;
 	private $images;
@@ -10,6 +11,8 @@ class Imdex
 	 */
 	public function __construct($basedir) {
 		$this->basedir = Path::GetFullPath($basedir);
+
+		$this->ignoredFolders = array("/css", "/img", "/js", "/php");
 	}
 
 	/**
@@ -42,14 +45,18 @@ class Imdex
 	}
 
 	/**
-	 * Lists all subfolders with images in the current directory.
+	 * Lists all subfolders in the current directory.
 	 * @return array An array containing the basenames of subfolders.
 	 */
 	public function Folders() {
 		if ($this->folders === NULL) {
 			$this->folders = glob($this->basedir . DIRECTORY_SEPARATOR . "*", GLOB_ONLYDIR);
-			foreach ($this->folders as &$value) {
-				$value = basename($value);
+			foreach ($this->folders as $key => &$value) {
+				if (self::IsIgnoredFolder($value)) {
+					unset($this->folders[$key]);
+				} else {
+					$value = basename($value);
+				}
 			}
 			unset($value);
 		}
@@ -61,7 +68,8 @@ class Imdex
 	 */
 	public function Images() {
 		if ($this->images === NULL) {
-			$this->images = glob($this->basedir . DIRECTORY_SEPARATOR . "*.{png,jpg,jpeg,gif}", GLOB_BRACE);
+			$this->images = glob($this->basedir . DIRECTORY_SEPARATOR . "*.{png,jpg,jpeg,gif}", 
+								 GLOB_BRACE);
 			foreach ($this->images as &$value) {
 				$value = basename($value);
 			}
@@ -76,5 +84,26 @@ class Imdex
 	 */
 	public function HasImages() {
 		return (count(self::Images()) > 0);
+	}
+
+	/**
+	 * Determines whether this directory has subfolders or not.
+	 * @return bool True if the directory contains subfolders, otherwise false
+	 */
+	public function HasFolders() {
+		return (count(self::Folders()) > 0);
+	}
+
+	/**
+	 * Determines whether the specified folder should be ignored.
+	 * @return bool True if the folder is to be ignored, otherwise false.
+	 */
+	private function IsIgnoredFolder($path) {
+		foreach ($this->ignoredFolders as $key => $value) {
+			if (Path::NormalizePath($path) === Path::GetFullPath($value)) {
+				return true;
+			}
+		}
+		return false;
 	}
 }
