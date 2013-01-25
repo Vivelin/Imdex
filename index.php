@@ -1,6 +1,6 @@
 <?php
 spl_autoload_register(function ($class) {
-    include 'php/' . $class . '.php';
+    include 'php/' . $class . '.class.php';
 });
 
 function print_nav($imdex) {
