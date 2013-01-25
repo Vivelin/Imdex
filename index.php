@@ -68,8 +68,6 @@ $imdex = new Imdex($requestDir);
 			<ul class="thumbnails">
 				<?php print_thumbs($imdex->Images()); ?> 
 			</ul>
-		<?php } else { ?> 
-			<p class="muted">There is nothing to display.
 		<?php } ?> 
 		</div>
 	</div>
