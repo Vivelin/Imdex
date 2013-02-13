@@ -9,7 +9,7 @@ class Path
 	 */
 	static function NormalizePath($path) {
 		$path = str_replace(array("/", "\\"), DIRECTORY_SEPARATOR, $path);
-		$path = preg_replace('/' . DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR . '+/',
+		$path = preg_replace('!' . DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR . '+!',
 							 DIRECTORY_SEPARATOR, $path);
 		if (substr($path, -1) === DIRECTORY_SEPARATOR)
 			$path = substr($path, 0, -1);
