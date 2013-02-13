@@ -10,8 +10,10 @@ function print_nav($imdex) {
 	}
 
 	foreach ($imdex->Folders() as $value) {
+		$sub = new Imdex($imdex->Path() . DIRECTORY_SEPARATOR . $value);
+
 		echo "<li"; 
-		if (!((new Imdex($value))->HasImages()))
+		if ($sub->IsEmpty())
 			echo " class=\"disabled\"";
 		echo "><a href=\"{$value}/\">{$value}</a>";
 	}

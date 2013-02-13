@@ -11,6 +11,8 @@ class Imdex
 	 */
 	public function __construct($basedir) {
 		$this->basedir = Path::GetFullPath($basedir);
+		if (!file_exists($this->basedir))
+			throw new Exception("Directory does not exist: {$this->basedir}");
 
 		$this->ignoredFolders = array("/css", "/img", "/js", "/php");
 	}
@@ -29,12 +31,20 @@ class Imdex
 	}
 
 	/**
+	 * Returns the path of the current directory.
+	 * @return string The path of the current directory.
+	 */
+	public function Path() {
+		return $this->basedir;
+	}
+
+	/**
 	 * The parent folder.
 	 * @return mixed An Imdex object that represents the parent directory, or FALSE if you can't go
 	 * up a directory.
 	 */
 	public function Parent() {
-		if (!self::CanGoUp())
+		if (!$this->CanGoUp())
 			return FALSE;
 
 		return new Imdex(dirname($this->basedir));
@@ -56,7 +66,7 @@ class Imdex
 		if ($this->folders === NULL) {
 			$this->folders = glob($this->basedir . DIRECTORY_SEPARATOR . "*", GLOB_ONLYDIR);
 			foreach ($this->folders as $key => &$value) {
-				if (self::IsIgnoredFolder($value)) {
+				if ($this->IsIgnoredFolder($value)) {
 					unset($this->folders[$key]);
 				} else {
 					$value = basename($value);
@@ -87,7 +97,7 @@ class Imdex
 	 * @return bool True if the directory contains images, otherwise false
 	 */
 	public function HasImages() {
-		return (count(self::Images()) > 0);
+		return (count($this->Images()) > 0);
 	}
 
 	/**
@@ -95,7 +105,15 @@ class Imdex
 	 * @return bool True if the directory contains subfolders, otherwise false
 	 */
 	public function HasFolders() {
-		return (count(self::Folders()) > 0);
+		return (count($this->Folders()) > 0);
+	}
+
+	/**
+	 * Determines whether this directory is empty or not.
+	 * @return bool True if the directory does not contain images or subfolders.
+	 */
+	public function IsEmpty() {
+		return !$this->HasImages() && !$this->HasFolders();
 	}
 
 	/**
