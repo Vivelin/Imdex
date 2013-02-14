@@ -22,11 +22,7 @@ function print_nav($imdex) {
 function print_thumbs($files) {
 	foreach ($files as $value) {
 		echo <<<HTML
-<li class="span4">
-	<a href="{$value}" class="thumbnail">
-		<img src="{$value}" alt="{$value}" title="{$value}">
-	</a>
-</li>
+<li class="span4"><a href="{$value}" class="thumbnail"><img src="{$value}" alt="{$value}" title="{$value}"></a>
 
 HTML;
 	}
@@ -40,7 +36,7 @@ $imdex = new Imdex($requestDir);
 <!DOCTYPE html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Imdex</title>
+<title>Images in <?php echo $imdex->Name();?></title>
 <link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
 <link href="/css/base.css" rel="stylesheet" media="screen">
 <link href="/css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">

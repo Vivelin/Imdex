@@ -73,6 +73,7 @@ class Imdex
 				}
 			}
 			unset($value);
+			sort($this->folders);
 		}
 		return $this->folders;
 	}
@@ -88,6 +89,7 @@ class Imdex
 				$value = basename($value);
 			}
 			unset($value);
+			rsort($this->images);
 		}
 		return $this->images;
 	}
