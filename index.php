@@ -42,11 +42,10 @@ $requestDir = Path::RemoveQueryString($_SERVER["REQUEST_URI"]);
 $imdex = new Imdex($requestDir);
 
 ?>
-
 <!DOCTYPE html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Images in <?php echo $imdex->Name();?></title>
+<title>Images in <?php echo htmlspecialchars($imdex->Name());?></title>
 <link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
 <link href="/css/base.css" rel="stylesheet" media="screen">
 <link href="/css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
@@ -64,7 +63,7 @@ $imdex = new Imdex($requestDir);
 		<div class="span2">
 		<?php if ($imdex->HasFolders() || $imdex->CanGoUp()) { ?> 
 			<ul class="nav nav-list well">
-				<li class="nav-header"><?php echo $imdex->Name();?> 
+				<li class="nav-header"><?php echo htmlspecialchars($imdex->Name());?> 
 				<?php print_nav($imdex); ?> 
 			</ul>
 		<?php } else if (!$imdex->HasImages()) { ?>
