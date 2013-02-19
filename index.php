@@ -20,12 +20,18 @@ function print_nav($imdex) {
 }
 
 function print_thumbs($files) {
-	foreach ($files as $value) {
-		echo <<<HTML
-<li class="span4"><a href="{$value}" class="thumbnail"><img src="{$value}" alt="{$value}" title="{$value}"></a>
+	$chunks = array_chunk($files, 3);
+	foreach ($chunks as $row)
+	{
+		echo "\t\t\t<ul class=\"thumbnails\">\n";
+		foreach ($row as $value) {
+			echo <<<HTML
+				<li class="span4"><a href="{$value}" class="thumbnail"><img src="{$value}" alt="{$value}" title="{$value}"></a>
 
 HTML;
-	}
+		}
+		echo "\t\t\t</ul>\n";
+	}	
 }
 
 $requestDir = Path::RemoveQueryString($_SERVER["REQUEST_URI"]);
@@ -61,16 +67,14 @@ $imdex = new Imdex($requestDir);
 			<a class="btn btn-block" href="."><i class="icon-refresh"></i> Refresh</a>
 		<?php } ?> 
 		</div>
-		<div class="span10">
-		<?php if (!$imdex->IsReal()) { ?>
+		<div class="span10"> 
+		<?php if (!$imdex->IsReal()) { ?> 
 			<div class="alert">
 				The requested directory does not exist.
 			</div>
-		<?php } else if ($imdex->HasImages()) { ?> 
-			<ul class="thumbnails">
-				<?php print_thumbs($imdex->Images()); ?> 
-			</ul>
-		<?php } ?> 
+		<?php } else if ($imdex->HasImages()) { 
+			print_thumbs($imdex->Images()); 
+		} ?> 
 		</div>
 	</div>
 </div>
