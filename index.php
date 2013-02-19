@@ -5,45 +5,51 @@ spl_autoload_register(function ($class) {
 
 function print_nav($imdex) {
 	if ($imdex->CanGoUp()) {
-		$parent = $imdex->Parent()->Name();
+		$parent = htmlspecialchars($imdex->Parent()->Name());
 		echo "<li><a href=\"..\"><i class=\"icon-chevron-left\"></i> {$parent}</a>";
 	}
 
 	foreach ($imdex->Folders() as $value) {
 		$sub = new Imdex($imdex->Path() . DIRECTORY_SEPARATOR . $value);
+		$name = htmlspecialchars($value);
+		$url = rawurldecode($value);
 
 		echo "<li"; 
 		if ($sub->IsEmpty())
 			echo " class=\"disabled\"";
-		echo "><a href=\"{$value}/\">{$value}</a>";
+		echo "><a href=\"{$url}/\">{$name}</a>";
 	}
 }
 
 function print_thumbs($files) {
-	foreach ($files as $value) {
-		echo <<<HTML
-<li class="span4">
-	<a href="{$value}" class="thumbnail">
-		<img src="{$value}" alt="{$value}" title="{$value}">
-	</a>
-</li>
+	$chunks = array_chunk($files, 3);
+	foreach ($chunks as $row)
+	{
+		echo "\t\t\t<ul class=\"thumbnails\">\n";
+		foreach ($row as $value) {
+			$name = htmlspecialchars($value);
+			$url = rawurlencode($value);
+			echo <<<HTML
+				<li class="span4"><a href="{$url}" class="thumbnail"><img src="{$url}" alt="{$name}" title="{$name}"></a>
 
 HTML;
-	}
+		}
+		echo "\t\t\t</ul>\n";
+	}	
 }
 
 $requestDir = Path::RemoveQueryString($_SERVER["REQUEST_URI"]);
 $imdex = new Imdex($requestDir);
 
 ?>
-
 <!DOCTYPE html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Imdex</title>
+<title>Images in <?php echo htmlspecialchars($imdex->Name());?></title>
 <link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
 <link href="/css/base.css" rel="stylesheet" media="screen">
 <link href="/css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
+<link href="/favicon.ico" type="image/x-icon" rel="shortcut icon">
 
 <div class="navbar navbar-static-top">
 	<div class="navbar-inner">
@@ -58,23 +64,21 @@ $imdex = new Imdex($requestDir);
 		<div class="span2">
 		<?php if ($imdex->HasFolders() || $imdex->CanGoUp()) { ?> 
 			<ul class="nav nav-list well">
-				<li class="nav-header"><?php echo $imdex->Name();?> 
+				<li class="nav-header"><?php echo htmlspecialchars($imdex->Name());?> 
 				<?php print_nav($imdex); ?> 
 			</ul>
 		<?php } else if (!$imdex->HasImages()) { ?>
 			<a class="btn btn-block" href="."><i class="icon-refresh"></i> Refresh</a>
 		<?php } ?> 
 		</div>
-		<div class="span10">
-		<?php if (!$imdex->IsReal()) { ?>
+		<div class="span10"> 
+		<?php if (!$imdex->IsReal()) { ?> 
 			<div class="alert">
 				The requested directory does not exist.
 			</div>
-		<?php } else if ($imdex->HasImages()) { ?> 
-			<ul class="thumbnails">
-				<?php print_thumbs($imdex->Images()); ?> 
-			</ul>
-		<?php } ?> 
+		<?php } else if ($imdex->HasImages()) { 
+			print_thumbs($imdex->Images()); 
+		} ?> 
 		</div>
 	</div>
 </div>
