@@ -85,11 +85,15 @@ class Imdex
 		if ($this->images === NULL) {
 			$this->images = glob($this->basedir . DIRECTORY_SEPARATOR . "*.{png,jpg,jpeg,gif}", 
 								 GLOB_BRACE);
+
+			usort($this->images, function ($a, $b) {
+				return filemtime($a) < filemtime($b);
+			});
+			
 			foreach ($this->images as &$value) {
 				$value = basename($value);
 			}
 			unset($value);
-			rsort($this->images);
 		}
 		return $this->images;
 	}

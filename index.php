@@ -49,6 +49,7 @@ $imdex = new Imdex($requestDir);
 <link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
 <link href="/css/base.css" rel="stylesheet" media="screen">
 <link href="/css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
+<link href="/favicon.ico" type="image/x-icon" rel="shortcut icon">
 
 <div class="navbar navbar-static-top">
 	<div class="navbar-inner">
