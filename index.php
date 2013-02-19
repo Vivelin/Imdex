@@ -12,7 +12,7 @@ function print_nav($imdex) {
 	foreach ($imdex->Folders() as $value) {
 		$sub = new Imdex($imdex->Path() . DIRECTORY_SEPARATOR . $value);
 		$name = htmlspecialchars($value);
-		$url = urldecode($value);
+		$url = rawurldecode($value);
 
 		echo "<li"; 
 		if ($sub->IsEmpty())
@@ -28,7 +28,7 @@ function print_thumbs($files) {
 		echo "\t\t\t<ul class=\"thumbnails\">\n";
 		foreach ($row as $value) {
 			$name = htmlspecialchars($value);
-			$url = urlencode($value);
+			$url = rawurlencode($value);
 			echo <<<HTML
 				<li class="span4"><a href="{$url}" class="thumbnail"><img src="{$url}" alt="{$name}" title="{$name}"></a>
 
