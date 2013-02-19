@@ -24,10 +24,10 @@ class Path
 	static function RemoveQueryString($uri) {
 		$pos = strpos($uri, "?");
 		if ($pos === FALSE)
-			return $uri;
+			return urldecode($uri);
 
 		$uri = substr($uri, 0, $pos);
-		return $uri;
+		return urldecode($uri);
 	}
 
 	/**
