@@ -5,3 +5,12 @@
 .nav-list {
 	margin-bottom: 20px;
 }
+
+.thumbnail .caption h4 {
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.btn:focus {
+	outline: none;
+}

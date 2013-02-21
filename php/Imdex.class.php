@@ -90,10 +90,10 @@ class Imdex
 				return filemtime($a) < filemtime($b);
 			});
 			
-			foreach ($this->images as &$value) {
-				$value = basename($value);
-			}
-			unset($value);
+			// foreach ($this->images as &$value) {
+			// 	$value = basename($value);
+			// }
+			// unset($value);
 		}
 		return $this->images;
 	}
