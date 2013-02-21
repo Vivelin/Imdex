@@ -14,7 +14,7 @@ class Imdex
 		if (!file_exists($this->basedir))
 			throw new Exception("Directory does not exist: {$this->basedir}");
 
-		$this->ignoredFolders = array("/css", "/img", "/js", "/php");
+		$this->ignoredFolders = array("/assets", "/php");
 	}
 
 	public function IsReal() {
