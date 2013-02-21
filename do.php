@@ -12,6 +12,10 @@ spl_autoload_register(function ($class) {
 function deleteFile($fileName) {
 	if (!file_exists($fileName)) error("File does not exist.");
 	if (!is_file($fileName)) error("Not a file.");
+	if (strpos($fileName, getcwd()) === FALSE)
+		error("You can't delete that file.");
+	if (!preg_match('/(.*)\.(png|jpe?g|gif)/', $fileName))
+	    error("You can't delete that file.");
 
 	return @unlink($fileName);
 }

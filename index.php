@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set('Europe/Amsterdam');
 spl_autoload_register(function ($class) {
     include 'php/' . $class . '.class.php';
 });
@@ -64,6 +65,10 @@ function print_thumb($image, $isAdmin) {
 	$url = rawurlencode(basename($image));
 	$qurl = urlencode($image);
 
+	$date = htmlspecialchars(Pretty::RelativeTime(filemtime($image)));
+	$fsize = htmlspecialchars(Pretty::FormatFileSize(filesize($image)));
+	$size = getimagesize($image);
+
 	if (!$isAdmin) {
 		echo "\n\t\t\t\t<li class=\"span4\"><a href=\"{$url}\" class=\"thumbnail\">"
 		   . "<img src=\"{$url}\" alt=\"{$name}\" title=\"{$name}\"></a>";
@@ -74,6 +79,10 @@ function print_thumb($image, $isAdmin) {
 					<img src="<?php echo $url;?>" alt="<?php echo $name;?>">
 					<div class="caption">
 						<h4 title="<?php echo $name;?>"><?php echo $name;?></h4>
+						<p class="muted">
+							Last updated <?php echo $date;?><br>
+							<?php echo $size[0] . "x" . $size[1] . ", " . $fsize;?><br>
+						</p>
 						<button class="btn btn-danger" type="button" 
 								onclick="deleteFile(<?php echo htmlspecialchars(json_encode($image));?>, this);">
 							<i class="icon-trash"></i> Delete
