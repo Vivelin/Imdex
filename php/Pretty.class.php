@@ -22,17 +22,20 @@ class Pretty
 	/**
 	 * Returns a string that represents the specified date.
 	 *
-	 * @param int $date	The date to format, in Unix time.
-	 * @return string A string that represents the specified date.
+	 * @param mixed $date	The date to format as string or as Unix timestamp.
+	 * @return string 		A string that represents the specified date.
 	 */
 	static function FormatDate($date) {
+		if (!ctype_digit($date))
+			$date = strtotime($date);
+
 		return date("l j F Y, G:i:s", $date);
 	}
 
 	/**
 	 * Returns a string that presents the specified date, relative to the current time.
 	 *
-	 * @param mixed $date	The date to format as DateTime or in Unix time.
+	 * @param mixed $date	The date to format as string or as Unix timestamp.
 	 * @return string A string that represents the specified date, relative to the current time.
 	 */
 	static function RelativeTime($date)
@@ -59,7 +62,7 @@ class Pretty
 			if ($day_diff <  7) return $day_diff . ' days ago';
 			if ($day_diff < 31) return ceil($day_diff / 7) . ' weeks ago';
 			if ($day_diff < 60) return 'last month';
-			
+
 			return self::FormatDate($date);
 		}
 		else
