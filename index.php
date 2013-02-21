@@ -62,6 +62,7 @@ function print_thumbs($files, $isAdmin) {
 function print_thumb($image, $isAdmin) {
 	$name = htmlspecialchars(basename($image));
 	$url = rawurlencode(basename($image));
+	$qurl = urlencode($image);
 
 	if (!$isAdmin) {
 		echo "\n\t\t\t\t<li class=\"span4\"><a href=\"{$url}\" class=\"thumbnail\">"
@@ -77,6 +78,7 @@ function print_thumb($image, $isAdmin) {
 								onclick="deleteFile(<?php echo htmlspecialchars(json_encode($image));?>, this);">
 							<i class="icon-trash"></i> Delete
 						</button>
+						<a class="btn" href="/do.php?action=download&file=<?php echo $qurl;?>"><i class="icon-download-alt"></i> Download</a>
 					</div>
 				</div>
 			</li>

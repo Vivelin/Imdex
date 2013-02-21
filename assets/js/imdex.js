@@ -33,3 +33,13 @@ function deleteFile(file, sender) {
 		}
 	}, 'json');
 }
+
+/**
+ * Offers the specified file to the client for download.
+ *
+ * @param <String> file
+ * @param <Element> sender
+ */
+function downloadFile(file, sender) {
+	document.execCommand('SaveAs', true, file);
+}

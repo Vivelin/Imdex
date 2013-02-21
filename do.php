@@ -17,6 +17,30 @@ function deleteFile($fileName) {
 }
 
 /**
+ * Offers the specified file to the client for download.
+ *
+ * @param string $fileName The name of the file to download.
+ */
+function doDownload($fileName) {
+	if (strpos($fileName, getcwd()) === FALSE)
+		exit;
+
+	$size = @getimagesize($fileName);
+	$fp = @fopen($fileName, "rb");
+	if ($size && $fp)
+	{
+	  header("Content-Type: {$size['mime']}");
+	  header("Content-Length: " . filesize($fileName));
+	  header("Content-Disposition: attachment; filename=\"" . basename($fileName) . "\"");
+	  header("Content-Transfer-Encoding: binary");
+	  header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+	  fpassthru($fp);
+	}
+
+	exit;
+}
+
+/**
  * Completes processing the request and returns an error.
  * 
  * @param string $message The message to display to the client.
@@ -37,6 +61,14 @@ if (isset($_GET["action"])) {
 		if (isset($_POST["filename"])) {
 			$fileName = $_POST["filename"];
 			deleteFile($fileName) or error("A problem occurred while deleting the file.");
+		} else {
+			error("No filename specified.");
+		}
+		break;
+	case "download":
+		if (isset($_GET["file"])) {
+			$fileName = $_GET["file"];
+			doDownload($fileName);
 		} else {
 			error("No filename specified.");
 		}
