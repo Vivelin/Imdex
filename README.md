@@ -13,12 +13,12 @@ Quick Start
 
 1. 	Clone the repository into a temporary directory: 
 
-		git clone git://github.com/horsedrowner/Imdex.git temp
+		$ git clone git://github.com/horsedrowner/Imdex.git temp
 
 2.	Move the files into the directory where your images are:
 
-		mv temp/* images/
-		mv temp/.git images/
+		$ mv temp/* images/
+		$ mv temp/.git images/
 
 3.	Set up the web server to serve `/index.php` as root (for example in nginx):
 
@@ -28,4 +28,7 @@ Quick Start
 			error_page 404 /404.png;
 		}
 
-	or use `router.php` as routing script (might or might not work)
+	or use `router.php` as routing script:
+	
+		$ php -S localhost:80 router.php
+
