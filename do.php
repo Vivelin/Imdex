@@ -3,6 +3,9 @@ spl_autoload_register(function ($class) {
     include 'php/' . $class . '.class.php';
 });
 
+require_once "php/session.php";
+require_once "php/connection.php";
+
 /**
  * Deletes the specified file.
  *
@@ -57,11 +60,14 @@ function error($message) {
     die($json);
 }
 
+$user = checkSession($db);
+
 // Handle the action
 if (isset($_GET["action"])) {
 	$action = $_GET["action"];
 	switch ($action) {
 	case "deleteFile":
+		if ($user === FALSE) error("Access denied.");
 		if (isset($_POST["filename"])) {
 			$fileName = $_POST["filename"];
 			deleteFile($fileName) or error("A problem occurred while deleting the file.");

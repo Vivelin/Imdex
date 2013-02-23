@@ -4,6 +4,9 @@ spl_autoload_register(function ($class) {
     include 'php/' . $class . '.class.php';
 });
 
+require_once "php/session.php";
+require_once "php/connection.php";
+
 /**
  * Prints the elements of the subfolder navigation list.
  *
@@ -95,7 +98,8 @@ function print_thumb($image, $isAdmin) {
 	}
 }
 
-$isAdmin = isset($_GET["manage"]);
+$user = checkSession($db);
+$isAdmin = isset($_GET["manage"]) && ($user !== FALSE);
 
 $requestDir = Path::RemoveQueryString($_SERVER["REQUEST_URI"]);
 $imdex = new Imdex($requestDir);
@@ -116,11 +120,22 @@ $imdex = new Imdex($requestDir);
 		<a class="brand" href="/"><?php echo htmlspecialchars($imdex->Name());?></a>
 		<ul class="nav">
 			<li <?php if (!$isAdmin) echo "class=\"active\"";?>><a href="."><i class="icon-folder-open"></i> Browse</a>
-		</ul>
-		<ul class="nav pull-right">
+		<?php if ($user !== FALSE) { ?> 
 			<li <?php if ($isAdmin) echo "class=\"active\"";?>><a href="?manage"><i class="icon-wrench"></i> Manage</a>
-			<li><a href="https://github.com/horsedrowner/Imdex" target="_blank"><i class="icon-github-alt"></i> GitHub</a>
+		<?php } ?>
 		</ul>
+	<?php if ($user === FALSE) { ?> 
+	    <form class="navbar-form pull-right" action="/login.php" method="post">
+		    <input type="text" name="username" class="span2" placeholder="Username">
+		    <input type="password" name="password" class="span2" placeholder="Password">
+		    <button type="submit" class="btn">Login</button>
+    	</form>
+	<?php } else { ?> 
+		<ul class="nav pull-right">
+			<li><p class="navbar-text">Hi, <strong><?php echo htmlspecialchars($user["username"]);?></strong>!</p>
+			<li><a href="/login.php?do=logout"><i class="icon-user"></i> Logout</a>
+		</ul>
+	<?php } ?>
 	</div>
 </div>
 
