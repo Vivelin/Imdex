@@ -64,8 +64,8 @@ function setSession(&$db, $id)
 	
 	if($updatesession->rowCount() == 1)
 	{
-		setcookie("authid", $id, time()+60*60*24*30);
-		setcookie("authkey", $sessionkey, time()+60*60*24*30);
+		setcookie("authid", $id, time()+60*60*24*30, "/");
+		setcookie("authkey", $sessionkey, time()+60*60*24*30, "/");
 	}
 
 }
