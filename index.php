@@ -131,9 +131,11 @@ $imdex = new Imdex($requestDir);
 		    <button type="submit" class="btn">Login</button>
     	</form>
 	<?php } else { ?> 
+		<div class="btn-group pull-right">
+			<a href="/login.php?do=logout" class="btn">Logout</a>
+		</div>
 		<ul class="nav pull-right">
-			<li><p class="navbar-text">Hi, <strong><?php echo htmlspecialchars($user["username"]);?></strong>!</p>
-			<li><a href="/login.php?do=logout"><i class="icon-user"></i> Logout</a>
+			<li><p class="navbar-text pull-right">Hi, <strong><?php echo htmlspecialchars($user["username"]);?></strong>!&nbsp;&nbsp;</p>
 		</ul>
 	<?php } ?>
 	</div>

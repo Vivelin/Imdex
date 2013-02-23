@@ -42,7 +42,7 @@ function logout(&$db)
 		echo "Not logged in, redirecting...";
 	}
 	
-	echo "<meta http-equiv='REFRESH' content='3;url=index.php'>"; // Might want to change this.
+	echo "<meta http-equiv='REFRESH' content='0;url=/'>";
 }
 
 /**
@@ -76,7 +76,7 @@ function login(&$db)
 	{
 		setSession($db, $user['id']);
 		echo "Logged in successfully, redirecting...";
-		echo "<meta http-equiv='REFRESH' content='3;url=index.php'>"; // Might want to change this.
+		echo "<meta http-equiv='REFRESH' content='0;url=/'>";
 	}
 	else
 	{
