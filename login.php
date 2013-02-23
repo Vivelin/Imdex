@@ -31,6 +31,9 @@ else
 */
 function logout(&$db)
 {
+	$return = filter_input(INPUT_GET, "return");
+	if (!$return) $return = '/';
+
 	$user = checkSession($db);
 	if($user)
 	{
@@ -42,7 +45,7 @@ function logout(&$db)
 		echo "Not logged in, redirecting...";
 	}
 	
-	echo "<meta http-equiv='REFRESH' content='0;url=/'>";
+	echo "<meta http-equiv='REFRESH' content='0;url={$return}'>";
 }
 
 /**
@@ -53,6 +56,9 @@ function logout(&$db)
 */
 function login(&$db)
 {
+	$return = filter_input(INPUT_GET, "return");
+	if (!$return) $return = '/';
+	
 	$username = filter_input(INPUT_POST, "username", FILTER_SANITIZE_SPECIAL_CHARS);
 	$password = filter_input(INPUT_POST, "password");
 
@@ -76,7 +82,7 @@ function login(&$db)
 	{
 		setSession($db, $user['id']);
 		echo "Logged in successfully, redirecting...";
-		echo "<meta http-equiv='REFRESH' content='0;url=/'>";
+		echo "<meta http-equiv='REFRESH' content='0;url={$return}'>";
 	}
 	else
 	{

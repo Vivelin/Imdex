@@ -125,14 +125,14 @@ $imdex = new Imdex($requestDir);
 		<?php } ?>
 		</ul>
 	<?php if ($user === FALSE) { ?> 
-	    <form class="navbar-form pull-right" action="/login.php" method="post">
+	    <form class="navbar-form pull-right" action="/login.php?return=<?php echo urlencode($_SERVER['REQUEST_URI']);?>" method="post">
 		    <input type="text" name="username" class="span2" placeholder="Username">
 		    <input type="password" name="password" class="span2" placeholder="Password">
 		    <button type="submit" class="btn">Login</button>
     	</form>
 	<?php } else { ?> 
 		<div class="btn-group pull-right">
-			<a href="/login.php?do=logout" class="btn">Logout</a>
+			<a href="/login.php?do=logout&return=<?php echo urlencode($_SERVER['REQUEST_URI']);?>" class="btn">Logout</a>
 		</div>
 		<ul class="nav pull-right">
 			<li><p class="navbar-text pull-right">Hi, <strong><?php echo htmlspecialchars($user["username"]);?></strong>!&nbsp;&nbsp;</p>
