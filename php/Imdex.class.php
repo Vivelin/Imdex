@@ -14,7 +14,7 @@ class Imdex
 		if (!file_exists($this->basedir))
 			throw new Exception("Directory does not exist: {$this->basedir}");
 
-		$this->ignoredFolders = array("/css", "/img", "/js", "/php");
+		$this->ignoredFolders = array("/assets", "/php");
 	}
 
 	public function IsReal() {
@@ -90,10 +90,10 @@ class Imdex
 				return filemtime($a) < filemtime($b);
 			});
 			
-			foreach ($this->images as &$value) {
-				$value = basename($value);
-			}
-			unset($value);
+			// foreach ($this->images as &$value) {
+			// 	$value = basename($value);
+			// }
+			// unset($value);
 		}
 		return $this->images;
 	}
