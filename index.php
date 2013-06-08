@@ -108,6 +108,7 @@ $imdex = new Imdex($requestDir);
 <!DOCTYPE html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
 <title>Images in <?php echo htmlspecialchars($imdex->Name());?></title>
 <link href="/assets/css/bootstrap.min.css" rel="stylesheet" media="screen">
 <link href="/assets/css/font-awesome.min.css" rel="stylesheet" media="screen">
