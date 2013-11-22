@@ -75,7 +75,7 @@ function print_thumb($image, $isAdmin) {
 
 	if (!$isAdmin) {
 		echo "\n\t\t\t\t<li class=\"span4\"><a href=\"{$url}\" class=\"thumbnail\">"
-		   . "<img src=\"{$url}\" alt=\"{$name}\" title=\"{$name}\"></a>";
+		   . "<img src=\"\" alt=\"{$name}\" title=\"{$name}\" data-echo=\"{$url}\"></a>";
 	} else {
 		?> 
 			<li class="span4">
@@ -170,4 +170,10 @@ $imdex = new Imdex($path);
 
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="/assets/js/bootstrap.min.js"></script>
+<script src="/assets/js/echo.min.js"></script>
 <script src="/assets/js/imdex.js"></script>
+<script>
+	if (typeof Echo != 'undefined') {
+		Echo.init();
+	}
+</script>
