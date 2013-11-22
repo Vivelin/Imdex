@@ -47,14 +47,16 @@ class Path
 
 	static function Combine() {
 		$args = func_get_args();
-		$args = array_filter(array_map(function($x) {
-			$x = Path::NormalizePath($x);
+
+		$args[0] = Path::NormalizePath($args[0]);
+		for ($i = 1; $i < count($args); $i++) {
+			$x = Path::NormalizePath($args[$i]);
 			if ($x && $x[0] === DIRECTORY_SEPARATOR) {
 				$x = substr($x, 1);
 			}
-			return $x;
-		}, $args));
+			$args[$i] = $x;
+		}
 
-		return implode(DIRECTORY_SEPARATOR, $args);
+		return implode(DIRECTORY_SEPARATOR, array_filter($args));
 	}
 }
