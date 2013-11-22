@@ -55,7 +55,7 @@ class Imdex
 	 * @return bool False if the base directory is the current folder, otherwise true.
 	 */
 	public function CanGoUp() {
-		return ($this->basedir !== getcwd());
+		return ($this->basedir !== Config::GetImageDir());
 	}
 
 	/**
@@ -83,8 +83,8 @@ class Imdex
 	 */
 	public function Images() {
 		if ($this->images === NULL) {
-			$this->images = glob($this->basedir . DIRECTORY_SEPARATOR . "*.{png,jpg,jpeg,gif}", 
-								 GLOB_BRACE);
+			$this->images = array_filter(glob($this->basedir . DIRECTORY_SEPARATOR . "*"), 
+				"self::IsImage");
 
 			usort($this->images, function ($a, $b) {
 				return filemtime($a) < filemtime($b);
@@ -133,5 +133,9 @@ class Imdex
 			}
 		}
 		return false;
+	}
+
+	private function IsImage($path) {
+		return (bool)preg_match("/.(png|jpe?g|gif|bmp)$/i", $path);
 	}
 }

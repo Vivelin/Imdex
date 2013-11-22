@@ -4,6 +4,7 @@ spl_autoload_register(function ($class) {
     include 'php/' . $class . '.class.php';
 });
 
+require_once 'config.php';
 require_once "php/session.php";
 require_once "php/connection.php";
 
@@ -29,7 +30,7 @@ function print_nav($imdex, $isAdmin) {
 	foreach ($imdex->Folders() as $value) {
 		$sub = new Imdex($imdex->Path() . DIRECTORY_SEPARATOR . $value);
 		$name = htmlspecialchars($value);
-		$url = rawurldecode($value) . "/";
+		$url = rawurlencode($value) . "/";
 		if ($isAdmin)
 			$url .= "?manage";
 
@@ -98,11 +99,13 @@ function print_thumb($image, $isAdmin) {
 	}
 }
 
+
 $user = checkSession($db);
 $isAdmin = isset($_GET["manage"]) && ($user !== FALSE);
 
 $requestDir = Path::RemoveQueryString($_SERVER["REQUEST_URI"]);
-$imdex = new Imdex($requestDir);
+$path = Path::Combine(Config::GetImageDir(), $requestDir);
+$imdex = new Imdex($path);
 
 ?>
 <!DOCTYPE html>
