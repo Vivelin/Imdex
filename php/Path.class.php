@@ -44,4 +44,17 @@ class Path
 			return $path;
 		return self::NormalizePath(getcwd() . DIRECTORY_SEPARATOR . $path);
 	}
+
+	static function Combine() {
+		$args = func_get_args();
+		$args = array_filter(array_map(function($x) {
+			$x = Path::NormalizePath($x);
+			if ($x && $x[0] === DIRECTORY_SEPARATOR) {
+				$x = substr($x, 1);
+			}
+			return $x;
+		}, $args));
+
+		return implode(DIRECTORY_SEPARATOR, $args);
+	}
 }

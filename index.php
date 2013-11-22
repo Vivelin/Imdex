@@ -4,6 +4,7 @@ spl_autoload_register(function ($class) {
     include 'php/' . $class . '.class.php';
 });
 
+require_once 'config.php';
 require_once "php/session.php";
 require_once "php/connection.php";
 
@@ -29,7 +30,7 @@ function print_nav($imdex, $isAdmin) {
 	foreach ($imdex->Folders() as $value) {
 		$sub = new Imdex($imdex->Path() . DIRECTORY_SEPARATOR . $value);
 		$name = htmlspecialchars($value);
-		$url = rawurldecode($value) . "/";
+		$url = rawurlencode($value) . "/";
 		if ($isAdmin)
 			$url .= "?manage";
 
@@ -74,7 +75,7 @@ function print_thumb($image, $isAdmin) {
 
 	if (!$isAdmin) {
 		echo "\n\t\t\t\t<li class=\"span4\"><a href=\"{$url}\" class=\"thumbnail\">"
-		   . "<img src=\"{$url}\" alt=\"{$name}\" title=\"{$name}\"></a>";
+		   . "<img src=\"\" alt=\"{$name}\" title=\"{$name}\" data-echo=\"{$url}\"></a>";
 	} else {
 		?> 
 			<li class="span4">
@@ -98,11 +99,13 @@ function print_thumb($image, $isAdmin) {
 	}
 }
 
+
 $user = checkSession($db);
 $isAdmin = isset($_GET["manage"]) && ($user !== FALSE);
 
 $requestDir = Path::RemoveQueryString($_SERVER["REQUEST_URI"]);
-$imdex = new Imdex($requestDir);
+$path = Path::Combine(Config::GetImageDir(), $requestDir);
+$imdex = new Imdex($path);
 
 ?>
 <!DOCTYPE html>
@@ -167,4 +170,10 @@ $imdex = new Imdex($requestDir);
 
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="/assets/js/bootstrap.min.js"></script>
+<script src="/assets/js/echo.min.js"></script>
 <script src="/assets/js/imdex.js"></script>
+<script>
+	if (typeof Echo != 'undefined') {
+		Echo.init();
+	}
+</script>
