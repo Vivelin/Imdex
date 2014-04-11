@@ -80,7 +80,7 @@ function print_thumb($image, $isAdmin) {
 		?> 
 			<li class="span4">
 				<div class="thumbnail">
-					<img src="<?php echo $url;?>" alt="<?php echo $name;?>">
+					<img src="" data-echo="<?php echo $url;?>" alt="<?php echo $name;?>">
 					<div class="caption">
 						<h4 title="<?php echo $name;?>"><?php echo $name;?></h4>
 						<p class="muted">
