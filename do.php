@@ -17,7 +17,7 @@ function deleteFile($fileName) {
 	if (!is_file($fileName)) error("Not a file.");
 	if (strpos($fileName, getcwd()) === FALSE)
 		error("You can't delete that file.");
-	if (!preg_match('/(.*)\.(png|jpe?g|gif)/', $fileName))
+	if (!preg_match('/(.*)\.(png|jpe?g|gif)/i', $fileName))
 	    error("You can't delete that file.");
 
 	return @unlink($fileName);
