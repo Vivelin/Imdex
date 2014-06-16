@@ -1,0 +1,88 @@
+body {
+	background-color: #000000;
+	color: #999999;
+	font-family: "Open Sans", "Segoe UI", sans-serif;
+}
+
+.navbar-inner {
+	background-color: #000000;
+	background-image: none;
+	border: none;
+	box-shadow: none !important;
+}
+
+.navbar .brand {
+	font-family: "Exo 2.0", "Open Sans", "Segoe UI", sans-serif;
+	font-weight: 400;
+	color: #999999;
+	text-shadow: none;
+}
+
+.navbar .nav > li > a {
+	color: #999999;
+	font: 300 1.8em/0.7 "Segoe WP", "Segoe UI", "Open Sans", sans-serif;
+	text-transform: lowercase;
+	text-shadow: none;
+}
+
+.navbar .nav > li > a:hover,
+.navbar .nav > li > a:active,
+.navbar .nav > li > a:focus {
+	color: #999999 !important;
+}
+
+.navbar .nav > .active > a,
+.navbar .nav > .active > a:hover,
+.navbar .nav > .active > a:focus {
+	color: #eeeeee !important;
+	background-color: transparent;
+	box-shadow: none;
+}
+
+.navbar-text {
+
+}
+
+select,
+textarea,
+input,
+.uneditable-input {
+	background-color: rgba(255, 255, 255, 0.7) !important;
+	border: 2px solid transparent !important;
+	border-radius: 0 !important;
+	box-shadow: none !important;
+	color: #000000 !important;
+	font-family: "Segoe WP", "Segoe UI", "Open Sans", sans-serif;
+}
+
+select:focus,
+textarea:focus,
+input:focus,
+.uneditable-input:focus {
+	background-color: rgba(255, 255, 255, 0.95) !important;
+}
+
+.btn {
+	border: 2px solid rgba(255, 255, 255, 0.95);
+	border-radius: 0 !important;
+	box-shadow: none;
+	background-color: transparent;
+	background-image: none;
+	color: rgba(255, 255, 255, 0.95);
+	font-family: "Segoe WP", "Segoe UI", "Open Sans", sans-serif;
+	font-weight: 600;
+	text-shadow: none;
+}
+
+.btn:hover {
+	background-color: rgba(255, 255, 255, 0.1);
+	box-shadow: none;
+	color: rgba(255, 255, 255, 0.95);
+}
+
+.btn:active {
+	border-color: transparent;
+	background-color: rgba(255, 255, 255, 0.95);
+	color: #000000;
+	box-shadow: none;
+}

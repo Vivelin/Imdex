@@ -117,15 +117,16 @@ $imdex = new Imdex($path);
 <link href="/assets/css/font-awesome.min.css" rel="stylesheet" media="screen">
 <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
 <link href="/assets/css/base.css" rel="stylesheet" media="screen">
+<link href="/assets/css/style.css" rel="stylesheet" media="screen">
 <link href="/favicon.ico" type="image/x-icon" rel="shortcut icon">
 
 <div class="navbar navbar-static-top">
 	<div class="navbar-inner">
 		<a class="brand" href="/"><?php echo htmlspecialchars($imdex->Name());?></a>
 		<ul class="nav">
-			<li <?php if (!$isAdmin) echo "class=\"active\"";?>><a href="."><i class="icon-folder-open"></i> Browse</a>
+			<li <?php if (!$isAdmin) echo "class=\"active\"";?>><a href="."> Browse</a>
 		<?php if ($user !== FALSE) { ?> 
-			<li <?php if ($isAdmin) echo "class=\"active\"";?>><a href="?manage"><i class="icon-wrench"></i> Manage</a>
+			<li <?php if ($isAdmin) echo "class=\"active\"";?>><a href="?manage"> Manage</a>
 		<?php } ?>
 		</ul>
 	<?php if ($user === FALSE) { ?> 
