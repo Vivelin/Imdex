@@ -21,7 +21,7 @@ function print_nav($imdex, $isAdmin) {
 		if ($isAdmin)
 			$url .= "?manage";
 
-		echo "\n\t\t\t\t<li><a href=\"{$url}\"><i class=\"icon-arrow-up\"></i> {$parent}</a>";
+		echo "\n\t\t\t\t<li><a href=\"{$url}\"><i class=\"icon-arrow-left\"></i> {$parent}</a>";
 	}
 
 	if ($imdex->CanGoUp() && $imdex->HasFolders())
@@ -37,7 +37,7 @@ function print_nav($imdex, $isAdmin) {
 		echo "\n\t\t\t\t<li"; 
 		if ($sub->IsEmpty())
 			echo " class=\"disabled\"";
-		echo "><a href=\"{$url}\"><i class=\"icon-caret-right\"></i> {$name}</a>";
+		echo "><a href=\"{$url}\">{$name}</a>";
 	}
 }
 
@@ -89,9 +89,9 @@ function print_thumb($image, $isAdmin) {
 						</p>
 						<button class="btn btn-danger" type="button" 
 								onclick="deleteFile(<?php echo htmlspecialchars(json_encode($image));?>, this);">
-							<i class="icon-trash"></i> Delete
+							Delete
 						</button>
-						<a class="btn" href="/do.php?action=download&file=<?php echo $qurl;?>"><i class="icon-download-alt"></i> Download</a>
+						<a class="btn" href="/do.php?action=download&file=<?php echo $qurl;?>">Download</a>
 					</div>
 				</div>
 			</li>
@@ -154,7 +154,7 @@ $imdex = new Imdex($path);
 				<?php print_nav($imdex, $isAdmin); ?> 
 			</ul>
 		<?php } else if (!$imdex->HasImages()) { ?> 
-			<a class="btn btn-block" href="."><i class="icon-refresh"></i> Refresh</a>
+			<a class="btn btn-block" href=".">Refresh</a>
 		<?php } ?> 
 		</div>
 		<div class="span10"> 

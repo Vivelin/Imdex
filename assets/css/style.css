@@ -40,7 +40,7 @@ body {
 }
 
 .navbar-text {
-
+	color: #888888;
 }
 
 select,
@@ -70,8 +70,10 @@ input:focus,
 	background-image: none;
 	color: rgba(255, 255, 255, 0.95);
 	font-family: "Segoe WP", "Segoe UI", "Open Sans", sans-serif;
+	font-size: 1.1em;
 	font-weight: 600;
 	text-shadow: none;
+	text-transform: lowercase;
 }
 
 .btn:hover {
@@ -85,4 +87,51 @@ input:focus,
 	background-color: rgba(255, 255, 255, 0.95);
 	color: #000000;
 	box-shadow: none;
+}
+
+.well {
+	background-color: #2d2d2d;
+	border: 1px solid transparent;
+	border-radius: 0;
+	box-shadow: none;
+	overflow: hidden;
+}
+
+.nav-list > li {
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.nav-list > li > a {
+	color: #eeeeee;
+	font: 300 1.5em "Segoe WP", "Segoe UI", "Open Sans", sans-serif;
+	text-shadow: none;
+}
+
+.nav-list > li > a:hover {
+	background-color: transparent;
+}
+
+.nav-list .divider {
+	background-color: transparent;
+	border: 1px solid transparent;
+}
+
+.thumbnail {
+	border: none;
+	border-radius: 0;
+	padding: 0;
+}
+
+a.thumbnail:hover {
+	box-shadow: none;
+}
+
+.thumbnail .caption {
+	color: #eeeeee;
+	font-family: "Exo 2.0", "Segoe WP", "Segoe UI", "Open Sans", sans-serif;
+}
+
+.muted {
+	color: #888888;
 }
