@@ -132,6 +132,11 @@ a.thumbnail:hover {
 	font-family: "Exo 2.0", "Segoe WP", "Segoe UI", "Open Sans", sans-serif;
 }
 
+.thumbnail img {
+	margin-left: inherit;
+	margin-right: inherit;
+}
+
 .muted {
 	color: #888888;
 }
