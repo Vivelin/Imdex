@@ -1,5 +1,5 @@
 ---
-  #include: \.(jpe?g|png|gif)$
-  #ignore:
-  #  - \/\.\.?
-  #  - ^\/assets
+  include: \.(jpe?g|png|gif)$
+  ignore:
+    - \/\.\.?
+    - ^\/assets
