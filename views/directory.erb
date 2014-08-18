@@ -1,0 +1,29 @@
+<%= dir.breadcrumb_html %>
+
+<nav>
+	<div class="ui menu">
+	<% dir.directories.each do |name| %>
+		<a class="item" href="<%= h name %>/"><%= name %></a>
+	<% end %>
+	</div>
+</nav>
+
+<main>
+	<div class="ui images">
+	<% dir.entries.each do |name| %>
+		<a class="ui medium image" href="<%= h name %>">
+			<img src="<%= h name %>" alt="<%= h name %>" title="<%= h name %>">
+		</a>
+	<% end %>
+	</div>
+</main>
+
+<footer>
+	<pre>
+	Directories:
+	<%= dir.directories %>
+
+	Entries:
+	<%= dir.entries %>
+	</pre>
+</footer>
