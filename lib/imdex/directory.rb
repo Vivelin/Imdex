@@ -47,9 +47,20 @@ module Imdex
     #
     def breadcrumb_html
       parts = components
+
+      # Remove the current component as it's handled separately
       curr = parts.pop
 
       html = %(<div class="ui breadcrumb">\n)
+
+      # Include the public folder itself to make the root clickable
+      if curr
+        html << %(  <a class="section" href="/">#{ root_name }</a>\n)
+      else
+        html << %(  <div class="active section">#{ root_name }</div>\n)
+      end
+
+      # Add a divider and section for every component
       parts.each_index do |i|
         url = parts.take(i + 1).collect{ |x| u(x) }.join("/")
 
@@ -57,8 +68,10 @@ module Imdex
         html << %(  <a class="section" href="/#{ url }/">#{ h parts[i] }</a>\n)
       end
 
+      # Add the current component as active section
       html << %(  <div class="divider"> / </div>\n)
       html << %(  <div class="active section">#{ h curr }</div>\n) unless curr.nil?
+
       html << %(</div>\n)
     end
 
@@ -129,6 +142,13 @@ module Imdex
     #
     def file_path
       File.join(self.class.public_folder, @path)
+    end
+
+    ##
+    # Determines the name of the public folder to show in the breadcrumb
+    #
+    def root_name
+      File.basename(self.class.public_folder)
     end
 
     ##

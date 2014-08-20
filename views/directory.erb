@@ -1,9 +1,16 @@
-<%= dir.breadcrumb_html %>
-
 <nav>
-	<div class="ui menu">
-	<% dir.directories.each do |name| %>
-		<a class="item" href="<%= h name %>/"><%= name %></a>
+	<div class="ui large inverted tiered menu">
+		<div class="menu">
+			<div class="item">
+				<%= dir.breadcrumb_html %>
+			</div>
+		</div>
+	<% unless dir.directories.empty? %>
+		<div class="ui sub menu">
+		<% dir.directories.each do |name| %>
+			<a class="item" href="<%= h name %>/"><%= name %></a>
+		<% end %>
+		</div>
 	<% end %>
 	</div>
 </nav>
@@ -17,13 +24,3 @@
 	<% end %>
 	</div>
 </main>
-
-<footer>
-	<pre>
-	Directories:
-	<%= dir.directories %>
-
-	Entries:
-	<%= dir.entries %>
-	</pre>
-</footer>
