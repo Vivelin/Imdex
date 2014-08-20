@@ -1,0 +1,31 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="author" content="Ruben Verdoes">
+<title><%= h img.name %></title>
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
+<link rel="stylesheet" type="text/css" href="/assets/css/semantic.min.css">
+<link rel="stylesheet" type="text/css" href="/styles/image">
+
+<main>
+	<header>
+		<div class="ui inverted segment">
+			<h2 class="ui left floated header"><%= h img.name %></h2>
+			<div class="ui right floated buttons">
+				<a class="black ui button" href=".">
+					<i class="icon left"></i>
+				</a>
+				<a class="<%= "disabled " unless img.deletable? %>negative ui button" data-action="delete">
+					<i class="icon warning"></i> Delete
+				</a>
+			</div>
+		</div>
+	</header>
+
+	<div id="container">
+		<img src="<%= h img.name %>" alt="<%= h img.name %>">
+	</div>
+</main>
+
+<script src="/assets/javascript/jquery-2.1.1.min.js"></script>
+<script src="/assets/javascript/semantic.min.js"></script>
+<script src="/assets/javascript/image.js"></script>
