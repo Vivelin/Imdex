@@ -59,10 +59,12 @@ class ImdexApp < Sinatra::Base
   end
 
   get "/styles/main" do
+    last_modified style_modified(:main)
     sass :main
   end
 
   get "/styles/image" do
+    last_modified style_modified(:image)
     sass :image
   end
 

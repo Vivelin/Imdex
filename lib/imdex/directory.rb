@@ -129,7 +129,6 @@ module Imdex
     def ignore?(value)
       self.class.ignore_list.each do |ignore|
         if Regexp.new(ignore) =~ value
-          puts "Ignoring #{ value } (matches #{ ignore })"
           return true
         end
       end
