@@ -136,10 +136,15 @@ module Imdex
     # Determines whether or not the specified value should be ignored.
     #
     def ignore?(value)
-      self.class.ignore_list.each do |ignore|
-        if Regexp.new(ignore) =~ value
-          return true
+      begin
+        self.class.ignore_list.each do |ignore|
+          if Regexp.new(ignore) =~ value
+            return true
+          end
         end
+      rescue ArgumentError
+        puts "ignore?: argument error in comparing against #{ value }"
+        return false
       end
 
       return false
