@@ -2,6 +2,7 @@ require "sinatra/base"
 require "better_errors"
 require "sass"
 require "yaml"
+require "json"
 
 require "./lib/helpers/template_utils"
 require "./lib/imdex/directory"
@@ -31,12 +32,51 @@ class ImdexApp < Sinatra::Base
     BetterErrors.application_root = __dir__
   end
 
+  get "/login" do
+    redirect to("/auth/google")
+  end
+
+  get "/logout" do
+    session.clear
+    redirect to("/"), 303
+  end
+
+  post "/auth/:provider/callback" do
+    info = request.env["omniauth.auth"]["info"]
+    email = info["email"]
+    name = info["name"]
+    is_admin = settings.app_config["admins"].include?(email)
+
+    session[:admin] = is_admin
+    session[:email] = email
+    session[:name] = name
+    redirect to("/"), 303
+  end
+
+  post "/auth/failure" do
+    session.clear
+    redirect to("/"), 303
+  end
+
   get "/styles/main" do
     sass :main
   end
 
   get "/styles/image" do
     sass :image
+  end
+
+  post "/delete" do
+    halt 401, "Unauthorized" unless session[:admin]
+
+    path = File.join(settings.public_folder, params[:path], params[:file])
+
+    halt 404, "File does not exist" unless File.exists?(path)
+    halt 405, "File is read-only" unless File.writable?(path)
+
+    File.delete(path)
+
+    status 204 # No Content
   end
 
   get "/*" do
@@ -51,18 +91,5 @@ class ImdexApp < Sinatra::Base
       @name = dir.name
       erb :directory, :locals => { :dir => dir }
     end
-  end
-
-  post "/delete" do
-    # halt 401, "Unauthorized" unless session[:admin]
-
-    path = File.join(settings.public_folder, params[:path], params[:file])
-
-    halt 404, "File does not exist" unless File.exists?(path)
-    halt 405, "File is read-only" unless File.writable?(path)
-
-    File.delete(path)
-
-    status 204 # No Content
   end
 end

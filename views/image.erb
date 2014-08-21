@@ -14,9 +14,11 @@
 				<a class="black ui button" href=".">
 					<i class="icon left"></i>
 				</a>
+			<% if session[:admin] %>
 				<a class="<%= "disabled " unless img.deletable? %>negative ui button" data-action="delete">
 					<i class="icon warning"></i> Delete
 				</a>
+			<% end %>
 			</div>
 		</div>
 	</header>

@@ -4,6 +4,27 @@
 			<div class="item">
 				<%= dir.breadcrumb_html %>
 			</div>
+			<div class="right menu">
+			<% if session[:email] %>
+				<div class="item">
+				<% if session[:admin] %>
+					<i class="red star icon" title="Administrator"></i> 
+				<% end %>
+					Logged in as <%= session[:name] %>
+				</div>
+				<div class="item">
+					<a class="ui black button" href="/logout">
+						Log out
+					</a>
+				</div>
+			<% else %>
+				<div class="item">
+					<a class="ui google plus button" href="/login">
+						<i class="google plus icon"></i> Log in
+					</a>
+				</div>
+			<% end %>
+			</div>
 		</div>
 	<% unless dir.directories.empty? %>
 		<div class="ui sub menu">

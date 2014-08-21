@@ -1,4 +1,6 @@
 ---
+  admins:
+    - horsedrowner@gmail.com
   include: \.(jpe?g|png|gif)$
   ignore:
     - \/\.\.?
