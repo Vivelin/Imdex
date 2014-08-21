@@ -129,7 +129,12 @@ module Imdex
     # Determines whether or not the specified value matches the include_pattern.
     #
     def include?(value)
-      self.class.include_pattern.match(value)
+      begin
+        self.class.include_pattern.match(value)
+      rescue ArgumentError
+        puts "include?: argument error in comparing against #{ value }"
+        return false
+      end
     end
 
     ##
