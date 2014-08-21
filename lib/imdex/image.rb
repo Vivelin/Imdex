@@ -23,7 +23,7 @@ module Imdex
     # Determines whether the image exists.
     #
     def exists?
-      File.exists?(file_path)
+      File.exists?(file_path) && File.file?(file_path)
     end
 
     ##

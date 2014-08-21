@@ -83,15 +83,26 @@ class ImdexApp < Sinatra::Base
 
   get "/*" do
     if params[:view]
-      @name = params[:view]
+      @name = params[:view].gsub(/[\\\/:*?|<>]/, "")
       img = Imdex::Image.new(request.path, @name)
+      halt 404 unless img.exists?
 
       erb :image, :layout => false, :locals => { :img => img }
     else
       dir = Imdex::Directory.new(request.path)
+      halt 404 unless dir.exists?
 
       @name = dir.name
       erb :directory, :locals => { :dir => dir }
+    end
+  end
+
+  not_found do
+    begin
+      files = settings.app_config["not_found"] || []
+      send_file files.sample, :status => 404
+    rescue
+      "Not Found"
     end
   end
 end

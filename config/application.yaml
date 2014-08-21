@@ -5,3 +5,5 @@
   ignore:
     - \/\.\.?
     - ^\/assets
+  not_found:
+    - images/404/tumblbeast.png
