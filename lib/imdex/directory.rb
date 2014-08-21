@@ -27,6 +27,13 @@ module Imdex
     end
 
     ##
+    # Determines whether the real directory exists and is actually a directory.
+    #
+    def exists?
+      File.exists?(file_path) && File.directory?(file_path)
+    end
+
+    ##
     # Gets an array of components that the path to the current directory 
     # consists of, or an empty array.
     #
@@ -62,7 +69,7 @@ module Imdex
 
       # Add a divider and section for every component
       parts.each_index do |i|
-        url = parts.take(i + 1).collect{ |x| u(x) }.join("/")
+        url = parts.take(i + 1).collect{ |x| h(x) }.join("/")
 
         html << %(  <div class="divider"> / </div>\n)
         html << %(  <a class="section" href="/#{ url }/">#{ h parts[i] }</a>\n)
@@ -79,7 +86,8 @@ module Imdex
     # Gets a list of subdirectories in the current directory.
     #
     def directories
-      Dir.entries(file_path).select do |entry|
+      opts = { :encoding => "UTF-8" }
+      Dir.entries(file_path, opts).select do |entry|
         full_path = translate_full_path(entry)
         path = translate_path(entry)
 
@@ -91,7 +99,8 @@ module Imdex
     # Gets a list of files that match the include_pattern.
     #
     def entries
-      Dir.entries(file_path).select do |entry|
+      opts = { :encoding => "UTF-8" }
+      Dir.entries(file_path, opts).select do |entry|
         path = translate_path(entry)
 
         include?(path) unless ignore?(path)
