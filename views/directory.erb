@@ -40,7 +40,7 @@
 	<div class="ui images">
 	<% dir.entries.each do |name| %>
 		<a class="ui medium image" href="?view=<%= u name %>">
-			<img src="<%= h name %>" alt="<%= h name %>" title="<%= h name %>">
+			<img src="<%= u name %>" alt="<%= h name %>" title="<%= h name %>">
 		</a>
 	<% end %>
 	</div>

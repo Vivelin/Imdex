@@ -39,5 +39,12 @@ module Helpers
     def u(text)
       Rack::Utils.escape_path(text)
     end
+
+    ##
+    # Unescapes URIs.
+    #
+    def unescape(text)
+      Rack::Utils.unescape(text)
+    end
   end
 end

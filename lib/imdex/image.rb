@@ -39,5 +39,26 @@ module Imdex
     def file_path
       File.join(self.class.public_folder, @path, @name)
     end
+
+    ##
+    # Escapes HTML.
+    #
+    def h(text)
+      Rack::Utils.escape_html(text)
+    end
+
+    ##
+    # Escapes URIs.
+    #
+    def u(text)
+      Rack::Utils.escape_path(text)
+    end
+
+    ##
+    # Unescapes URIs.
+    #
+    def unescape(text)
+      Rack::Utils.unescape(text)
+    end
   end
 end

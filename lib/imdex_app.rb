@@ -105,7 +105,9 @@ class ImdexApp < Sinatra::Base
   not_found do
     begin
       files = settings.app_config["not_found"] || []
-      send_file files.sample, :status => 404
+      path = files.sample
+      puts "using #{ path } for 404"
+      send_file path, :status => 404
     rescue
       "Not Found"
     end
