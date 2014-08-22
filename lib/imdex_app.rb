@@ -88,7 +88,7 @@ class ImdexApp < Sinatra::Base
 
   get "/*" do
     if params[:view]
-      @name = params[:view].gsub(/[\\\/:*?|<>]/, "")
+      @name = params[:view].gsub(/[\\\/\x00]/, "")
       img = Imdex::Image.new(request.path, @name)
       halt 404 unless img.exists?
 
