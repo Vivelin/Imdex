@@ -87,12 +87,14 @@ module Imdex
     #
     def directories
       opts = { :encoding => "UTF-8" }
-      Dir.entries(file_path, opts).select do |entry|
+      dirs = Dir.entries(file_path, opts).select do |entry|
         full_path = translate_full_path(entry)
         path = translate_path(entry)
 
         File.directory?(full_path) unless ignore?(path)
       end
+
+      dirs.sort
     end
 
     ##
@@ -100,10 +102,14 @@ module Imdex
     #
     def entries
       opts = { :encoding => "UTF-8" }
-      Dir.entries(file_path, opts).select do |entry|
+      files = Dir.entries(file_path, opts).select do |entry|
         path = translate_path(entry)
 
         include?(path) unless ignore?(path)
+      end
+
+      files.sort do |x,y| 
+        File.mtime(translate_full_path(y)) <=> File.mtime(translate_full_path(x))
       end
     end
 

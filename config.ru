@@ -3,7 +3,7 @@ require "./lib/imdex_app"
 
 use Rack::Session::Cookie, {
   :key => "imdex.session",
-  :secret => "dicks", 
+  :secret => ENV["SESSION_SECRET"] || "dicks", 
   :expire_after => 2592000 # 30 days
 }
 
