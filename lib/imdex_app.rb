@@ -11,7 +11,16 @@ require "./lib/imdex/image"
 class ImdexApp < Sinatra::Base
   helpers Helpers::TemplateUtils
 
+  configure :development do
+    use BetterErrors::Middleware
+    BetterErrors.application_root = __dir__
+  end
+
   configure do
+    use OmniAuth::Builder do
+      provider :github, ENV["GITHUB_KEY"], ENV["GITHUB_SECRET"], :scope => "user:email"
+    end
+
     # Sinatra settings
     set :views, :sass => "styles", :default => "views"
     set :root, File.expand_path(File.dirname(File.dirname(__FILE__)))
@@ -27,13 +36,8 @@ class ImdexApp < Sinatra::Base
     Imdex::Directory.ignore_list = settings.app_config["ignore"] || [ "\\/\\.\\.?", "^\\/assets" ]
   end
 
-  configure :development do
-    use BetterErrors::Middleware
-    BetterErrors.application_root = __dir__
-  end
-
   get "/login" do
-    redirect to("/auth/google")
+    redirect to("/auth/github")
   end
 
   get "/logout" do
@@ -41,7 +45,7 @@ class ImdexApp < Sinatra::Base
     redirect to("/"), 303
   end
 
-  post "/auth/:provider/callback" do
+  get "/auth/:provider/callback" do
     info = request.env["omniauth.auth"]["info"]
     email = info["email"]
     name = info["name"]
@@ -54,6 +58,7 @@ class ImdexApp < Sinatra::Base
   end
 
   post "/auth/failure" do
+    puts "auth failure"
     session.clear
     redirect to("/"), 303
   end

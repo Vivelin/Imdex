@@ -1,4 +1,4 @@
-require "omniauth-openid"
+require "omniauth-github"
 require "./lib/imdex_app"
 
 use Rack::Session::Cookie, {
@@ -6,10 +6,5 @@ use Rack::Session::Cookie, {
   :secret => "dicks", 
   :expire_after => 2592000 # 30 days
 }
-
-use OmniAuth::Builder do
-  provider :open_id, :name => "google", 
-    :identifier => "https://www.google.com/accounts/o8/id"
-end
 
 run ImdexApp

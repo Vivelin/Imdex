@@ -2,7 +2,7 @@ source "https://rubygems.org"
 
 gem "sinatra"
 gem "sass"
-gem "omniauth-openid"
+gem "omniauth-github"
 
 group :development do
   gem "better_errors"
