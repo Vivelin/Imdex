@@ -32,6 +32,7 @@ class ImdexApp < Sinatra::Base
     # Directory settings
     Imdex::Image.public_folder = settings.public_folder
     Imdex::Directory.public_folder = settings.public_folder
+    Imdex::Directory.filename_encoding = settings.app_config["filename_encoding"] || "UTF-8"
     Imdex::Directory.include_pattern = Regexp.new(settings.app_config["include"]  || "\.(jpe?g|png|gif)$")
     Imdex::Directory.ignore_list = settings.app_config["ignore"] || [ "\\/\\.\\.?", "^\\/assets" ]
   end

@@ -13,6 +13,9 @@ module Imdex
 
       # Gets or sets a regular expression that determines what images to show.
       attr_accessor :include_pattern
+
+      # Gets or sets the encoding to use for file system entries
+      attr_accessor :filename_encoding
     end
 
     # Gets the unescaped URI path for the current directory.
@@ -86,8 +89,7 @@ module Imdex
     # Gets a list of subdirectories in the current directory.
     #
     def directories
-      opts = { :encoding => "UTF-8" }
-      dirs = Dir.entries(file_path, opts).select do |entry|
+      dirs = Dir.entries(file_path, dir_opts).select do |entry|
         full_path = translate_full_path(entry)
         path = translate_path(entry)
 
@@ -101,8 +103,7 @@ module Imdex
     # Gets a list of files that match the include_pattern.
     #
     def entries
-      opts = { :encoding => "UTF-8" }
-      files = Dir.entries(file_path, opts).select do |entry|
+      files = Dir.entries(file_path, dir_opts).select do |entry|
         path = translate_path(entry)
 
         include?(path) unless ignore?(path)
@@ -173,6 +174,13 @@ module Imdex
     #
     def root_name
       File.basename(self.class.public_folder)
+    end
+
+    ##
+    # Returns a hash of options used by Dir.entries
+    #
+    def dir_opts
+      { :encoding => self.class.filename_encoding }
     end
 
     ##
