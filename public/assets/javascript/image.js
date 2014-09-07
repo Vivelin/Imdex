@@ -69,7 +69,7 @@ function onDelete(e) {
  */
 function view() {
 	var match = /[\?\&]view=?([^\&]*)/.exec(window.location.search);
-	return match ? match[1] : null;
+	return match ? decodeURIComponent(match[1]) : null;
 }
 
 // Fuck CSS
