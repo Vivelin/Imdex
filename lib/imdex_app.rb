@@ -96,6 +96,7 @@ class ImdexApp < Sinatra::Base
       erb :image, :layout => false, :locals => { :img => img }
     else
       dir = Imdex::Directory.new(request.path)
+      dir.root_name = request.env["HTTP_HOST"]
       halt 404 unless dir.exists?
 
       @name = dir.name

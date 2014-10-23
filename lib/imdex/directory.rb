@@ -18,6 +18,9 @@ module Imdex
       attr_accessor :filename_encoding
     end
 
+    # Gets or sets the name of the root folder for display
+    attr_accessor :root_name
+
     # Gets the unescaped URI path for the current directory.
     attr_reader :path
 
@@ -65,9 +68,9 @@ module Imdex
 
       # Include the public folder itself to make the root clickable
       if curr
-        html << %(  <a class="section" href="/">#{ root_name }</a>\n)
+        html << %(  <a class="section" href="/">#{ h root_name }</a>\n)
       else
-        html << %(  <div class="active section">#{ root_name }</div>\n)
+        html << %(  <div class="active section">#{ h root_name }</div>\n)
       end
 
       # Add a divider and section for every component
@@ -173,7 +176,7 @@ module Imdex
     # Determines the name of the public folder to show in the breadcrumb
     #
     def root_name
-      File.basename(self.class.public_folder)
+      @root_name || File.basename(self.class.public_folder)
     end
 
     ##
