@@ -101,6 +101,24 @@ module Imdex
 
       dirs.sort
     end
+    
+    ##
+    # Gets a list of subdirectories in the parent folder.
+    #
+    def siblings
+      parent = File.expand_path("..", file_path)        
+      dirs = Dir.entries(parent, dir_opts).select do |entry|
+        full_path = File.expand_path(entry, parent)
+        path = File.join(File.dirname(@path), entry)
+        
+        File.directory?(full_path) unless ignore?(path)
+      end
+      
+      dirs.sort.map do |entry|
+        active = name == File.basename(entry)
+        [entry, active]
+      end
+    end
 
     ##
     # Gets a list of files that match the include_pattern.

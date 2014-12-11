@@ -26,13 +26,17 @@
 			<% end %>
 			</div>
 		</div>
-	<% unless dir.directories.empty? %>
-		<div class="ui sub menu">
+        <div class="ui sub menu">
+	<% if dir.directories.empty? %>
+        <% dir.siblings.each do |name, active| %>
+            <a class="<%= 'active ' if active %>item" href="../<%= h name %>/"><%= name %></a>
+        <% end %>
+    <% else %>
 		<% dir.directories.each do |name| %>
 			<a class="item" href="<%= h name %>/"><%= name %></a>
 		<% end %>
-		</div>
 	<% end %>
+		</div>
 	</div>
 </nav>
 
