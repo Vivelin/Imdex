@@ -41,7 +41,7 @@ class ImdexApp < Sinatra::Base
     redirect to("/auth/github")
   end
 
-  get "/logout" do
+  post "/logout" do
     session.clear
     redirect to("/"), 303
   end

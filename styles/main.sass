@@ -5,24 +5,27 @@ $page-color:		#fefefe
 $page-text-color:	#2d2d2d
 
 html
-	background: $page-color url("/assets/images/lightnoise.png") fixed repeat
-	color: $page-text-color
-	font-family: $page-font-family
-	font-size: 100%
+    background: $page-color url("/assets/images/lightnoise.png") fixed repeat
+    color: $page-text-color
+    font-family: $page-font-family
+    font-size: 100%
 
 a
-	color: $primary-color
-	text-decoration: none
+    color: $primary-color
+    text-decoration: none
 
 a:hover
-	color: lighten($primary-color, 15%)
+    color: lighten($primary-color, 15%)
 
 pre
-	background-color: darken($page-color, 5%)
-	color: $page-text-color
-	white-space: pre-wrap
+    background-color: darken($page-color, 5%)
+    color: $page-text-color
+    white-space: pre-wrap
 
 nav
-	margin-bottom: 1em
+    margin-bottom: 1em
+
+input, textarea, keygen, select, button
+    font-family: $page-font-family
 
 @import semantic

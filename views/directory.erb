@@ -13,9 +13,11 @@
 					Logged in as <%= session[:name] %>
 				</div>
 				<div class="item">
-					<a class="ui black button" href="/logout">
-						Log out
-					</a>
+                    <form method="post" action="/logout">
+                        <button class="ui black button" type="submit">
+                            Log out
+                        </button>
+                    </form>
 				</div>
 			<% else %>
 				<div class="item">
