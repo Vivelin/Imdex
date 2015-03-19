@@ -129,7 +129,7 @@ class ImdexApp < Sinatra::Base
       img = Imdex::Image.new(request.path, @name)
       halt 404 unless img.exists?
 
-      erb :image, :layout => false, :locals => { :img => img }
+      haml :image, locals: { image: img }
     else
       dir = Imdex::Directory.new(request.path)
       dir.root_name = request.env["HTTP_HOST"]
@@ -155,7 +155,7 @@ class ImdexApp < Sinatra::Base
 
   not_found do
     begin
-      send_file 'images/404/tumblbeast.png', :status => 404
+      send_file 'images/404/tumblbeast.png', status: 404
     rescue
       "Not Found"
     end

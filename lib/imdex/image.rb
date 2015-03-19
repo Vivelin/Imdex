@@ -1,3 +1,5 @@
+require "Filesize"
+
 module Imdex
   ##
   # Represents an image inside the public folder.
@@ -38,6 +40,22 @@ module Imdex
     #
     def file_path
       File.join(self.class.public_folder, @path, @name)
+    end
+
+    ##
+    # Gets the file size of the image as a string.
+    #
+    def size
+      length = File.size(file_path)
+      Filesize.from("#{ length } B").pretty
+    end
+
+    ##
+    # Gets the last modified date of the image as a string.
+    #
+    def modified_date
+      mdate = File.mtime(file_path)
+      mdate.iso8601
     end
 
     ##
