@@ -99,9 +99,6 @@ class ImdexApp < Sinatra::Base
 
   post "/upload" do
     pass unless session[:admin]
-    pp params
-
-    tempfile = params[:file][:tempfile]
 
     path = File.join(settings.public_folder, params[:dest])
     FileUtils.mkpath(path) unless File.exists?(path)
@@ -110,12 +107,13 @@ class ImdexApp < Sinatra::Base
           when 'image/jpeg' then 'jpg'
           when 'image/png' then 'png'
           when 'image/gif' then 'gif'
-          else halt 415, "Unsupported file type"
+          else raise ArgumentError, "Unsupported file type"
           end
     filename = File.join(path, "#{ Time.now.to_i }-#{  }.#{ ext }")
 
-    halt 409, "Conflict: file already exists" if File.exists?(filename)
+    raise ArgumentError, "File already exists" if File.exists?(filename)
 
+    tempfile = params[:file][:tempfile]
     File.open(filename, 'wb') do |f|
       while buffer = tempfile.read(4096)
         f.write(buffer)
@@ -142,12 +140,22 @@ class ImdexApp < Sinatra::Base
     end
   end
 
+  error ArgumentError do
+    status 400
+    haml :clienterror, locals: { error: env['sinatra.error'].to_s }
+  end
+
+  error do
+    begin
+      haml :error, locals: { error: env['sinatra.error'].to_s }
+    rescue
+      "error while error"
+    end
+  end
+
   not_found do
     begin
-      files = settings.app_config["not_found"] || []
-      path = files.sample
-      puts "using #{ path } for 404"
-      send_file path, :status => 404
+      send_file 'images/404/tumblbeast.png', :status => 404
     rescue
       "Not Found"
     end
