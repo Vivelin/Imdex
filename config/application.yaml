@@ -1,8 +1,0 @@
----
-  admins:
-    - horsedrowner@gmail.com
-  include: \.(jpe?g|png|gif)$
-  ignore:
-    - \/\.\.?
-    - ^\/assets
-  filename_encoding: UTF-8
