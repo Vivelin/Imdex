@@ -1,0 +1,26 @@
+%form{method: 'post', action: '/logout'}
+  %nav
+    .ui.large.inverted.menu
+      .header.item= request.env['HTTP_HOST']
+      .right.menu
+        .item
+          %i.red.star.icon
+          = "Logged in as #{ session[:name] }"
+        %a.item{href: params[:path]}
+          %i.arrow.left.icon
+          = 'Return'
+
+
+%main
+  .ui.max-width.segment
+    .ui.dividing.header= 'Image uploader'
+    %form.ui.form{method: 'post', enctype: 'multipart/form-data'}
+      .required.field
+        %label{for: 'file'}= 'File'
+        %input#file{type: 'file', name: 'file'}
+      .field
+        %label{for: 'dest'}= 'Destination'
+        %input#dest{type: 'text', name: 'dest', value: params[:path]}
+      .ui.buttons
+        %button.ui.primary.button{type: 'submit'}= 'Upload'
+        %a.ui.button{href: params[:path]}= 'Cancel'

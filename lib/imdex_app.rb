@@ -2,7 +2,9 @@ require "sinatra/base"
 require "better_errors"
 require "sass"
 require "yaml"
+require "haml"
 require "json"
+require "pp"
 
 require "./lib/helpers/template_utils"
 require "./lib/imdex/directory"
@@ -87,6 +89,40 @@ class ImdexApp < Sinatra::Base
     status 204 # No Content
   end
 
+  get "/upload" do
+    pass unless session[:admin]
+
+    erb :layout, layout: false do
+      haml :upload
+    end
+  end
+
+  post "/upload" do
+    pass unless session[:admin]
+
+    path = File.join(settings.public_folder, params[:dest])
+    FileUtils.mkpath(path) unless File.exists?(path)
+
+    ext = case params[:file][:type]
+          when 'image/jpeg' then 'jpg'
+          when 'image/png' then 'png'
+          when 'image/gif' then 'gif'
+          else raise ArgumentError, "Unsupported file type"
+          end
+    filename = File.join(path, "#{ Time.now.to_i }-#{  }.#{ ext }")
+
+    raise ArgumentError, "File already exists" if File.exists?(filename)
+
+    tempfile = params[:file][:tempfile]
+    File.open(filename, 'wb') do |f|
+      while buffer = tempfile.read(4096)
+        f.write(buffer)
+      end
+    end
+
+    redirect to(params[:dest]), 303
+  end
+
   get "/*" do
     if params[:view]
       @name = params[:view].force_encoding(settings.app_config["filename_encoding"]).gsub(/[\\\/\x00]/, "")
@@ -104,12 +140,22 @@ class ImdexApp < Sinatra::Base
     end
   end
 
+  error ArgumentError do
+    status 400
+    haml :clienterror, locals: { error: env['sinatra.error'].to_s }
+  end
+
+  error do
+    begin
+      haml :error, locals: { error: env['sinatra.error'].to_s }
+    rescue
+      "error while error"
+    end
+  end
+
   not_found do
     begin
-      files = settings.app_config["not_found"] || []
-      path = files.sample
-      puts "using #{ path } for 404"
-      send_file path, :status => 404
+      send_file 'images/404/tumblbeast.png', :status => 404
     rescue
       "Not Found"
     end

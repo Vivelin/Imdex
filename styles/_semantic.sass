@@ -9,11 +9,14 @@
     
 .ui.medium.image img
     max-height: 300px * 9 / 16
-    
-.ui.menu:not(.vertical) .item > form > .button
-    position: relative
-    top: -.05em
-    margin: -.55em 0
-    padding-bottom: .55em
-    padding-top: .55em
-    font-size: .875em
+
+.ui.menu button.item
+    border: none
+
+.ui.menu button.item:hover
+    background: rgba(0,0,0,.03)
+    color: rgba(0,0,0,.8)
+
+.ui.inverted.menu button.item:hover
+    background: rgba(255,255,255,.1)
+    color: #fff
