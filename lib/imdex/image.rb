@@ -1,4 +1,4 @@
-require "Filesize"
+require "filesize"
 
 module Imdex
   ##
