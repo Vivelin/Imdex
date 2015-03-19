@@ -2,20 +2,23 @@ $page-font-family:	"Open Sans", "Segoe UI", sans-serif
 $page-text-color:   #fefefe
 
 html
-    background: #222 url("/assets/images/darknoise.png") fixed repeat
+    background: #222 url("/assets/darknoise.png") fixed repeat
+
+body
+    background: none
     color: $page-text-color
     font-family: $page-font-family
     font-size: 100%
-    height: 100%
-
-body
+    height: auto
     margin: auto
     max-width: 80%
-    min-height: 100%
 
 main
     display: block
-    margin: 0 auto 1em auto
+    margin: .5em auto
+
+    header
+        margin-bottom: .5em
 
 #container
     img
