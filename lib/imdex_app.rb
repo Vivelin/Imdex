@@ -2,7 +2,9 @@ require "sinatra/base"
 require "better_errors"
 require "sass"
 require "yaml"
+require "haml"
 require "json"
+require "pp"
 
 require "./lib/helpers/template_utils"
 require "./lib/imdex/directory"
@@ -85,6 +87,42 @@ class ImdexApp < Sinatra::Base
     File.delete(path)
 
     status 204 # No Content
+  end
+
+  get "/upload" do
+    pass unless session[:admin]
+
+    erb :layout, layout: false do
+      haml :upload
+    end
+  end
+
+  post "/upload" do
+    pass unless session[:admin]
+    pp params
+
+    tempfile = params[:file][:tempfile]
+
+    path = File.join(settings.public_folder, params[:dest])
+    FileUtils.mkpath(path) unless File.exists?(path)
+
+    ext = case params[:file][:type]
+          when 'image/jpeg' then 'jpg'
+          when 'image/png' then 'png'
+          when 'image/gif' then 'gif'
+          else halt 415, "Unsupported file type"
+          end
+    filename = File.join(path, "#{ Time.now.to_i }-#{  }.#{ ext }")
+
+    halt 409, "Conflict: file already exists" if File.exists?(filename)
+
+    File.open(filename, 'wb') do |f|
+      while buffer = tempfile.read(4096)
+        f.write(buffer)
+      end
+    end
+
+    redirect to(params[:dest]), 303
   end
 
   get "/*" do
