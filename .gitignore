@@ -62,3 +62,4 @@ favicon.ico
 public/*
 !public/assets/
 config/*
+logs/
