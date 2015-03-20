@@ -1,0 +1,34 @@
+%form{ method: :post, action: "/logout" }
+  %nav
+    .ui.large.inverted.tiered.menu
+      .menu
+        .item!= dir.breadcrumb_html
+        .right.menu
+          - if session[:email]
+            .item
+              - if session[:admin]
+                %i.red.star.icon{ title: "Administrator" }
+              = "Logged in as #{ session[:name] }"
+            - if session[:admin]
+              %a.item{ href: "/upload?path=#{ dir.path }" }
+                %i.upload.icon
+                = "Upload"
+            %button.item{ type: :submit }
+              %i.sign.out.icon
+              = "Log out"
+          - else
+            %a.item{ href: "/login" }
+              %i.github.icon
+              = "Log in"
+      .ui.sub.menu
+        - if dir.directories.empty?
+          - dir.siblings.each do |name, active| 
+            %a{ class: "#{ active ? 'active item' : 'item' }", href: "../#{ u name }/" }= name
+        - else
+          - dir.directories.each do |name| 
+            %a.item{ href: "#{ u name }/"}= name
+%main
+  .ui.images
+    - dir.entries.each do |name| 
+      %a.ui.medium.image{ href: "?view=#{ u name }" }
+        %img{ src: u(name), alt: name, title: name }

@@ -1,0 +1,12 @@
+!!!
+%meta{ charset: 'utf-8' }
+%meta{ name: :author, content: "Ruben Verdoes" }
+%title= @name ? "Images in #{ @name }" : "Images"
+%link{ rel: :stylesheet, type: 'text/css', href: "http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" }
+%link{ rel: :stylesheet, type: 'text/css', href: "/assets/semantic.min.css" }
+%link{ rel: :stylesheet, type: 'text/css', href: "/styles/main" }
+
+!= yield
+
+%script{ src: "/assets/jquery-2.1.1.min.js" }
+%script{ src: "/assets/semantic.min.js" }

@@ -28,6 +28,9 @@ class ImdexApp < Sinatra::Base
     set :root, File.expand_path(File.dirname(File.dirname(__FILE__)))
     enable :static
 
+    # Tilt settings
+    set :haml, escape_html: true
+
     # App settings
     set :app_config, YAML.load_file("config/application.yaml") || {}
 
@@ -92,9 +95,7 @@ class ImdexApp < Sinatra::Base
   get "/upload" do
     pass unless session[:admin]
 
-    erb :layout, layout: false do
-      haml :upload
-    end
+    haml :upload
   end
 
   post "/upload" do
@@ -129,25 +130,25 @@ class ImdexApp < Sinatra::Base
       img = Imdex::Image.new(request.path, @name)
       halt 404 unless img.exists?
 
-      haml :image, locals: { image: img }
+      haml :image, layout: false, locals: { image: img }
     else
       dir = Imdex::Directory.new(request.path)
       dir.root_name = request.env["HTTP_HOST"]
       halt 404 unless dir.exists?
 
       @name = dir.name
-      erb :directory, :locals => { :dir => dir }
+      haml :directory, locals: { dir: dir }
     end
   end
 
   error ArgumentError do
     status 400
-    haml :clienterror, locals: { error: env['sinatra.error'].to_s }
+    haml :clienterror, layout: false, locals: { error: env['sinatra.error'].to_s }
   end
 
   error do
     begin
-      haml :error, locals: { error: env['sinatra.error'].to_s }
+      haml :error, layout: false, locals: { error: env['sinatra.error'].to_s }
     rescue
       "error while error"
     end
