@@ -42,6 +42,10 @@ class ImdexApp < Sinatra::Base
     Imdex::Directory.ignore_list = settings.app_config["ignore"] || [ "\\/\\.\\.?", "^\\/assets" ]
   end
 
+  configure :production do
+    set :haml, ugly: true
+  end
+
   get "/login" do
     redirect to("/auth/github")
   end
