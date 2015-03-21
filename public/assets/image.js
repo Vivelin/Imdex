@@ -61,6 +61,17 @@
     }
 
     /**
+     * Handles the `zoom` button action.
+     */
+    function onZoom(e) {
+        var $container = $("#container");
+
+        if ($container.length) {
+            $container.toggleClass("constrained");
+        }
+    }
+
+    /**
      * Attaches onClick handlers to all buttons that have an action specified in the
      * data-action attribute.
      */
@@ -71,6 +82,9 @@
             switch ($element.data("action")) {
             case "delete":
                 $element.click(onDelete);
+                break;
+            case "zoom":
+                $element.click(onZoom);
                 break;
             default:
                 break;

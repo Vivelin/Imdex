@@ -2,9 +2,9 @@
 %meta{ charset: 'utf-8' }
 %meta{ name: :author, content: 'Ruben Verdoes' }
 %title= image.name
-%link{ rel: :stylesheet, type: 'text/css', href: "http://fonts.googleapis.com/css?family=Open+Sans:400,700"}
-%link{ rel: :stylesheet, type: 'text/css', href: "/assets/semantic.min.css"}
-%link{ rel: :stylesheet, type: 'text/css', href: "/styles/image" }
+%link{ rel: :stylesheet, type: 'text/css', href: 'http://fonts.googleapis.com/css?family=Open+Sans:400,700'}
+%link{ rel: :stylesheet, type: 'text/css', href: '/assets/semantic.min.css'}
+%link{ rel: :stylesheet, type: 'text/css', href: '/styles/image' }
 
 %main
   %header
@@ -13,16 +13,19 @@
       .text.item= image.size
       %time.text.item{ datetime: image.modified_date }= image.modified_date
       .right.menu
-        %a.item{href: '.'}
+        %a.item{ href: '.' }
           %i.level.up.icon
           = 'Back'
+        %a.item{ data: { action: 'zoom' } }
+          %i.zoom.icon
+          = 'Zoom'
         - if image.deletable?
           %a.item{ data: { action: 'delete' } }
             %i.trash.icon
             = 'Delete'
-  #container
+  .constrained#container
     %img{ src: u(image.name), alt: image.name }
 
-%script{ src: "/assets/jquery-2.1.1.min.js" }
-%script{ src: "/assets/semantic.min.js" }
-%script{ src: "/assets/image.js" }
+%script{ src: '/assets/jquery-2.1.1.min.js' }
+%script{ src: '/assets/semantic.min.js' }
+%script{ src: '/assets/image.js' }
