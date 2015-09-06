@@ -18,7 +18,7 @@ module Imdex
     #
     def initialize(path, name)
       @path = unescape path
-      @name = unescape name
+      @name = name
     end
 
     ##
