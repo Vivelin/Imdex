@@ -19,7 +19,7 @@
         %a.item{ data: { action: 'zoom' } }
           %i.zoom.icon
           = 'Zoom'
-        - if image.deletable?
+        - if session[:admin] && image.deletable?
           %a.item{ data: { action: 'delete' } }
             %i.trash.icon
             = 'Delete'
