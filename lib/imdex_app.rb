@@ -86,7 +86,7 @@ class ImdexApp < Sinatra::Base
   post "/delete" do
     halt 401, "Unauthorized" unless session[:admin]
 
-    path = File.join(settings.public_folder, params[:path], params[:file])
+    path = File.join(settings.public_folder, unescape(params[:path]), params[:file])
 
     halt 404, "File does not exist" unless File.exists?(path)
     halt 405, "File is read-only" unless File.writable?(path)
