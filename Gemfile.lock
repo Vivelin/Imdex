@@ -58,3 +58,6 @@ DEPENDENCIES
   omniauth-github
   sass
   sinatra
+
+BUNDLED WITH
+   1.10.6

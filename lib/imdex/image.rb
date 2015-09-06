@@ -17,8 +17,8 @@ module Imdex
     # specified by `name` in the directory specified by `path`.
     #
     def initialize(path, name)
-      @path = path
-      @name = name
+      @path = unescape path
+      @name = unescape name
     end
 
     ##

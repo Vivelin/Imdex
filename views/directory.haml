@@ -10,7 +10,7 @@
                 %i.red.star.icon{ title: "Administrator" }
               = "Logged in as #{ session[:name] }"
             - if session[:admin]
-              %a.item{ href: "/upload?path=#{ dir.path }" }
+              %a.item{ href: "/upload?path=#{ u dir.path }" }
                 %i.upload.icon
                 = "Upload"
             %button.item{ type: :submit }
