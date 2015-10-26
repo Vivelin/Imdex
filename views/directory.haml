@@ -1,0 +1,13 @@
+!!! html
+%title= directory.name
+
+%h1= "#{ directory.name } (#{ directory.count })"
+%ul.directories
+  - directory.directories.each do |name|
+    %li<
+      %a{ href: "#{ URI.encode(name) }/" }= "#{ name }"
+
+%ul.files
+  - directory.files.each do |name|
+    %li<
+      %a{ href: "#{ URI.encode(name) }"}= "#{ name }"
