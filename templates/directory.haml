@@ -1,0 +1,13 @@
+!!! html
+%title= directory.name
+%link{ rel: :stylesheet, type: 'text/css', href: '/styles/main' }
+
+%h1= "#{ directory.name } (#{ directory.count })"
+
+.entries
+  - directory.directories.each do |name|
+    %a.tile{ href: "#{ URI.encode(name) }/" }<>
+      .caption= "#{ name }"
+  - directory.images.each do |name|
+    %a.tile{ href: URI.encode(name) }<>
+      %img{ src: URI.encode(name), alt: name, title: name }

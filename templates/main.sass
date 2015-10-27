@@ -1,0 +1,59 @@
+$tile_size: 200px
+
+$concrete: #95a5a6
+$wet_asphalt: #34495e
+$amethyst: #9b59b6
+$peter_river: #3498db
+$emerald: #2ecc71
+$turquoise: #1abc9c
+$sun_flower: #f1c40f
+$carrot: #e67e22
+$alizarin: #e74c3c
+
+.tile
+    position: relative
+    vertical-align: top // Gets rid of weird inline-block vertical spacing
+
+    display: inline-block
+    width: $tile_size
+    height: $tile_size
+    margin: 0 5px 5px 0
+    box-sizing: border-box // Gets rid of weird alignment issues
+
+    border: 1px solid $concrete
+    color: #ecf0f1
+    overflow: hidden
+
+    .caption
+        position: absolute
+        bottom: 0
+
+        width: 100%
+        padding: .25em
+
+        background-color: rgba(0, 0, 0, .5)
+        overflow: hidden
+        text-overflow: ellipsis
+        white-space: nowrap
+
+    img
+        width: $tile_size
+        height: $tile_size
+        object-fit: cover
+
+.tile:nth-child(8n+1)
+    background-color: $wet_asphalt
+.tile:nth-child(8n+2)
+    background-color: $amethyst
+.tile:nth-child(8n+3)
+    background-color: $peter_river
+.tile:nth-child(8n+4)
+    background-color: $emerald
+.tile:nth-child(8n+5)
+    background-color: $turquoise
+.tile:nth-child(8n+6)
+    background-color: $sun_flower
+.tile:nth-child(8n+7)
+    background-color: $carrot
+.tile:nth-child(8n+8)
+    background-color: $alizarin

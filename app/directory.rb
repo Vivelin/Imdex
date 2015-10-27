@@ -21,6 +21,10 @@ module Imdex
       entries.select { |item| include_file?(item) }
     end
 
+    def images
+      files.select { |item| include_image?(item) }
+    end
+
     def count
       entries.length
     end
@@ -28,12 +32,17 @@ module Imdex
     private
     def include_dir?(item)
       item_path = File.expand_path(item, @path)
-      File.directory?(item_path) unless /^\.$/.match(item)
+      File.directory?(item_path) unless item == '.'
     end
 
     def include_file?(item)
       item_path = File.expand_path(item, @path)
-      File.file?(item_path) unless /^(\.|\.\.)$/.match(item) 
+      File.file?(item_path)
+    end
+
+    def include_image?(item)
+      item_path = File.expand_path(item, @path)
+      (item_path =~ (/\.(jpe?g|png|gif|bmp)$/)) != nil
     end
   end
 end

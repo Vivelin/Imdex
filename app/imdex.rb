@@ -12,10 +12,14 @@ end
 configure do
   set :basedir, File.expand_path('D:\Dropbox\Images')
 
-  set :views, "views"
+  set :views, 'templates'
   set :root, File.expand_path(File.dirname(__dir__))
   set :public_folder, settings.basedir
   set :haml, escape_html: true
+end
+
+get '/styles/:name' do
+  sass params[:name].to_sym
 end
 
 get '/*' do
