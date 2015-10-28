@@ -37,15 +37,19 @@ module Imdex
     def include_dir?(item)
       begin
         item_path = File.expand_path(item, @path)
-        File.directory?(item_path) unless item =~ /^\.\.?$/
+        File.directory?(item_path) unless item =~ /^\./
       rescue ArgumentError
         puts "THIS FILENAME IS FUCKED UP: #{ @path }/#{ item }"
       end
     end
 
     def include_file?(item)
-      item_path = File.expand_path(item, @path)
-      File.file?(item_path)
+      begin
+        item_path = File.expand_path(item, @path)
+        File.file?(item_path) unless item =~ /^\./
+      rescue ArgumentError
+        puts "THIS FILENAME IS FUCKED UP: #{ @path }/#{ item }"
+      end
     end
 
     def include_image?(item)
