@@ -10,9 +10,12 @@ GEM
     coderay (1.1.0)
     debug_inspector (0.0.2)
     erubis (2.7.0)
+    haml (4.0.6)
+      tilt
     rack (1.6.4)
     rack-protection (1.5.3)
       rack
+    sass (3.4.13)
     sinatra (1.4.6)
       rack (~> 1.4)
       rack-protection (~> 1.4)
@@ -20,12 +23,12 @@ GEM
     tilt (2.0.1)
 
 PLATFORMS
+  ruby
   x86-mingw32
 
 DEPENDENCIES
   better_errors
   binding_of_caller
+  haml
+  sass
   sinatra
-
-BUNDLED WITH
-   1.10.6
