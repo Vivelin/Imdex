@@ -13,26 +13,30 @@ module Imdex
       Dir.entries(path, encoding: 'UTF-8')
     end
 
+    def count
+      entries.length
+    end
+
     def directories
-      entries.select { |item| include_dir?(item) }
+      entries.sort.select { |item| include_dir?(item) }
     end
 
     def files
-      entries.select { |item| include_file?(item) }
+      entries.select { |item| include_file?(item) }.sort do |x,y| 
+        x = File.mtime(File.expand_path(x, @path))
+        y = File.mtime(File.expand_path(y, @path))
+        y <=> x
+      end
     end
 
     def images
       files.select { |item| include_image?(item) }
     end
 
-    def count
-      entries.length
-    end
-
     private
     def include_dir?(item)
       item_path = File.expand_path(item, @path)
-      File.directory?(item_path) unless item == '.'
+      File.directory?(item_path) unless item =~ /^\.\.?$/
     end
 
     def include_file?(item)

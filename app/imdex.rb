@@ -3,6 +3,7 @@ require 'better_errors'
 require 'tilt/haml'
 
 require_relative 'directory'
+require_relative 'directory_controller'
 
 configure :development do
   use BetterErrors::Middleware
@@ -22,11 +23,16 @@ get '/styles/:name' do
   sass params[:name].to_sym
 end
 
+get '/favicon.ico' do
+  send_file 'assets/favicon.ico'
+end
+
 get '/*' do
   requested_path = URI.decode(request.path_info[1..-1])
   path = File.expand_path(requested_path, settings.basedir)
   pass unless path.start_with?(settings.basedir)
 
   directory = Imdex::Directory.new(path)
-  haml :directory, locals: { directory: directory }
+  controller = Imdex::DirectoryController.new(directory, settings)
+  haml :directory, locals: { directory: controller }
 end

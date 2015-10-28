@@ -5,9 +5,15 @@
 %h1= "#{ directory.name } (#{ directory.count })"
 
 .entries
-  - directory.directories.each do |name|
-    %a.tile{ href: "#{ URI.encode(name) }/" }<>
-      .caption= "#{ name }"
+  - unless directory.root?
+    %a.tile{ href: '..' }<>
+      .caption= '..'
+  - directory.directories.each do |subdir|
+    %a.tile{ href: "#{ URI.encode(subdir.name) }/" }<>
+      - if subdir.tile_src
+        %img{ src: URI.encode(subdir.tile_src), alt: subdir.name }<>
+      .count= subdir.count
+      .caption= subdir.name
   - directory.images.each do |name|
     %a.tile{ href: URI.encode(name) }<>
       %img{ src: URI.encode(name), alt: name, title: name }
