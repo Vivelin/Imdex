@@ -1,5 +1,6 @@
 require 'sinatra'
 require 'better_errors'
+require 'yaml'
 require 'tilt/haml'
 
 require_relative 'directory'
@@ -11,7 +12,9 @@ configure :development do
 end
 
 configure do
-  set :basedir, File.expand_path('D:\Dropbox\Images')
+  config = {}
+  config = YAML.load_file('config.yml') if File.file?('config.yml')
+  set :basedir, File.expand_path(config['basedir'] || 'public')
 
   set :views, 'templates'
   set :root, File.expand_path(File.dirname(__dir__))
