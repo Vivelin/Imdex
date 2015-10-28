@@ -48,7 +48,10 @@ get '/*' do
   pass unless File.exist?(path)
 
   # Serve files when nginx for some reason refuses to do so, e.g. Cave Story+
-  halt send_file(path) if File.file?(path)
+  if File.file?(path)
+    puts "WARNING: serving #{ request.path } from code because nginx is too lazy"
+    halt send_file(path) 
+  end
 
   directory = Imdex::Directory.new(path)
   controller = Imdex::DirectoryController.new(directory, settings)
