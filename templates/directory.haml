@@ -1,5 +1,5 @@
 !!! html
-%title= directory.name
+%title= "Images in #{ directory.name }"
 %link{ rel: :stylesheet, type: 'text/css', href: '/styles/main' }
 
 %header
@@ -7,13 +7,13 @@
 
 %main
   - unless directory.root?
-    %a.tile{ href: '..' }<>
+    %a.tile{ href: '..' }<
       .caption= '..'
   - directory.directories.each do |subdir|
     %a.tile{ href: "#{ URI.encode(subdir.name) }/" }<>
       - if subdir.tile_src
         %img{ src: URI.encode(subdir.tile_src), alt: subdir.name }<>
-      .count= subdir.count
+      .count<>= subdir.count
       .caption= subdir.name
   - directory.images.each do |name|
     %a.tile{ href: URI.encode(name) }<>
