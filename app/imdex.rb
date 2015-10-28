@@ -45,6 +45,10 @@ get '/*' do
   requested_path = URI.decode(request.path_info[1..-1])
   path = File.expand_path(requested_path, settings.basedir)
   pass unless path.start_with?(settings.basedir)
+  pass unless File.exist?(path)
+
+  # Serve files when nginx for some reason refuses to do so, e.g. Cave Story+
+  halt send_file(path) if File.file?(path)
 
   directory = Imdex::Directory.new(path)
   controller = Imdex::DirectoryController.new(directory, settings)
