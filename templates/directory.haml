@@ -10,11 +10,11 @@
     %a.tile{ href: '..' }<
       .caption= '..'
   - directory.directories.each do |subdir|
-    %a.tile{ href: "#{ URI.encode(subdir.name) }/" }<>
+    %a.tile{ href: "#{ u(subdir.name) }/" }<>
       - if subdir.tile_src
-        %img{ src: URI.encode(subdir.tile_src), alt: subdir.name }<>
+        %img{ src: u(subdir.tile_src), alt: subdir.name }<>
       .count<>= subdir.count
       .caption= subdir.name
   - directory.images.each do |name|
-    %a.tile{ href: URI.encode(name) }<>
-      %img{ src: URI.encode(name), alt: name, title: name }
+    %a.tile{ href: u(name) }<>
+      %img{ src: u(name), alt: name, title: name }

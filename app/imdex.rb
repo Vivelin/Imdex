@@ -1,6 +1,7 @@
 require 'sinatra'
 require 'better_errors'
 require 'yaml'
+require 'tilt/sass'
 require 'tilt/haml'
 
 require_relative 'directory'
@@ -9,6 +10,12 @@ require_relative 'directory_controller'
 configure :development do
   use BetterErrors::Middleware
   BetterErrors.application_root = File.dirname(__dir__)
+end
+
+helpers do
+  def u(value)
+    URI.encode(value).gsub('+', '%2B')
+  end
 end
 
 configure do
@@ -28,6 +35,10 @@ end
 
 get '/favicon.ico' do
   send_file 'assets/favicon.ico'
+end
+
+get '/debug' do
+
 end
 
 get '/*' do
