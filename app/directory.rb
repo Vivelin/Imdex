@@ -14,7 +14,7 @@ module Imdex
     end
 
     def count
-      entries.length
+      entries.length - 2 # Excluding . and ..
     end
 
     def directories

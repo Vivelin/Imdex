@@ -2,9 +2,10 @@
 %title= directory.name
 %link{ rel: :stylesheet, type: 'text/css', href: '/styles/main' }
 
-%h1= "#{ directory.name } (#{ directory.count })"
+%header
+  %h1= "#{ directory.name } (#{ directory.count })"
 
-.entries
+%main
   - unless directory.root?
     %a.tile{ href: '..' }<>
       .caption= '..'
