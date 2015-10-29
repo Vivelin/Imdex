@@ -1,6 +1,7 @@
 !!! html
 %title= "Images in #{ directory.name }"
 %link{ rel: :stylesheet, type: 'text/css', href: '/styles/main' }
+%script{ src: '/assets/blazy.min.js' }
 
 %header
   %h1= "#{ directory.name } (#{ directory.count })"
@@ -12,9 +13,14 @@
   - directory.directories.each do |subdir|
     %a.tile{ href: "#{ u(subdir.name) }/" }<>
       - if subdir.tile_src
-        %img{ src: u(subdir.tile_src), alt: subdir.name }<>
+        %img{ alt: subdir.name, data: { src: u(subdir.tile_src) } }<>
       .count<>= subdir.count
       .caption= subdir.name
   - directory.images.each do |name|
     %a.tile{ href: u(name) }<>
-      %img{ src: u(name), alt: name, title: name }
+      %img{ alt: name, title: name, data: { src: u(name) } }
+
+:javascript
+  (function(){
+    var bLazy = new Blazy({selector: 'img'});
+  }());

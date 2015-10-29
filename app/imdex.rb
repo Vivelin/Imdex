@@ -4,18 +4,15 @@ require 'yaml'
 require 'tilt/sass'
 require 'tilt/haml'
 
+require_relative 'helpers'
 require_relative 'directory'
 require_relative 'directory_controller'
+
+helpers Imdex::Helpers
 
 configure :development do
   use BetterErrors::Middleware
   BetterErrors.application_root = File.dirname(__dir__)
-end
-
-helpers do
-  def u(value)
-    URI.encode(value).gsub('+', '%2B')
-  end
 end
 
 configure do
@@ -30,15 +27,18 @@ configure do
 end
 
 get '/styles/:name' do
-  sass params[:name].to_sym
+  name = params[:name].to_sym
+
+  last_modified mtime(name, :sass)
+  sass name
+end
+
+get '/assets/blazy.min.js' do
+  send_file 'assets/blazy.min.js'
 end
 
 get '/favicon.ico' do
   send_file 'assets/favicon.ico'
-end
-
-get '/debug' do
-
 end
 
 get '/*' do
