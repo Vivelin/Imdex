@@ -26,7 +26,10 @@ See it in action at <http://s.horsedrowner.net/>.
     ```
 
 4. Inside the cloned repository, run `bundle`;
-5. Run the app using your favorite app server, or use `rackup`;
+5. Run the app using your favorite app server, or use `rackup`. Make sure the following environment variables are present:
+    - `GITHUB_KEY`: GitHub Client ID;
+    - `GITHUB_SECRET`: GitHub Client Secret;
+    - `SESSION_SECRET`: Arbitrary string used for session cookies.
 
 ## Troubleshooting
 ### THIS FILENAME IS FUCKED UP

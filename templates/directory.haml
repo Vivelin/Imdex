@@ -5,6 +5,18 @@
 
 %header
   %h1= "#{ directory.name } (#{ directory.count })"
+  %aside
+    - if session[:user]
+      %form{ method: :post, action: '/logout' }
+        %p
+          %img.avatar{ src: session[:avatar], alt: "#{ session[:name] }'s avatar" }
+          = 'Logged in as '
+          %span.logged-in= session[:name]
+          %button{ type: :submit }= 'Logout'
+    - else
+      %form{ method: :get, action: '/auth/github' }
+        %p
+          %button{ type: :submit }= 'Login with GitHub'
 
 %main
   - unless directory.root?

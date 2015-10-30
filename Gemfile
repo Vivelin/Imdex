@@ -1,10 +1,11 @@
-source "https://rubygems.org"
+source 'https://rubygems.org'
 
-gem "sinatra"
-gem "haml"
-gem "sass"
+gem 'sinatra'
+gem 'haml'
+gem 'sass'
+gem 'omniauth-github'
 
 group :development do
-    gem "binding_of_caller"
-    gem "better_errors"
+    gem 'binding_of_caller'
+    gem 'better_errors'
 end

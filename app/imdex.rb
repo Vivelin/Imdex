@@ -26,6 +26,27 @@ configure do
   set :haml, escape_html: true
 end
 
+get '/auth/:provider/callback' do
+  info = request.env["omniauth.auth"]["info"]
+  puts info
+
+  session[:user] = info['email']
+  session[:name] = info['name']
+  session[:avatar] = info['image']
+  redirect to('/'), 303
+end
+
+post "/auth/failure" do
+  puts "auth failure"
+  session.clear
+  redirect to("/"), 303
+end
+
+post "/logout" do
+  session.clear
+  redirect to("/"), 303
+end
+
 get '/styles/:name' do
   name = params[:name].to_sym
 

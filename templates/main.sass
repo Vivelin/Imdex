@@ -5,6 +5,7 @@ $clouds: #ecf0f1
 $concrete: #95a5a6
 $asbestos: #7f8c8d
 $wet_asphalt: #34495e
+$midnight_blue: #2c3e50
 $amethyst: #9b59b6
 $peter_river: #3498db
 $belize_hole: #2980b9
@@ -35,9 +36,48 @@ body
             padding: 0
             font: 600 2em/1.6 'Open Sans', 'Segoe UI', sans-serif
 
+        aside
+            float: right
+            margin-top: .5em
+
+            p
+                display: inline-block
+                margin: 0
+
+            .logged-in
+                font: 600 1em/1.6 'Open Sans', 'Segoe UI', sans-serif
+
+            form
+                display: inline-block
+                margin-left: 1em
+
+    .avatar
+        display: inline-block
+        height: 2.25em
+        width: auto
+
+        vertical-align: top
+        margin: 0 .25em
+
 main
     display: block
     margin: 2em
+
+button
+    margin: 0 .5em
+    padding: .25em .5em
+
+    background-color: $midnight_blue
+    color: $clouds
+    font: 600 1em/1.6 'Open Sans', 'Segoe UI', sans-serif
+    border: none
+
+    cursor: pointer
+
+button:hover, button:active
+    background-color: $wet_asphalt
+button:focus
+    outline: 2px solid $clouds
 
 .tile
     position: relative
@@ -49,7 +89,6 @@ main
     margin: 0 .5em .5em 0
     box-sizing: border-box // Gets rid of weird alignment issues
 
-    //border: 1px solid $concrete
     color: #ecf0f1
     overflow: hidden
 
