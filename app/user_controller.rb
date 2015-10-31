@@ -33,8 +33,12 @@ module Imdex
       owner? || role == :admin
     end
 
+    def contributor?
+      admin? || role == :contributor
+    end
+
     def recognized?
-      admin? || role == :recognized
+      contributor? || role == :recognized
     end
   end
 end
