@@ -73,8 +73,8 @@ get '/*' do
     halt send_file(path) 
   end
 
+  user = Imdex::UserController.new(session, settings.config)
   directory = Imdex::Directory.new(path)
-  dir_controller = Imdex::DirectoryController.new(directory, settings.config)
-  user_controller = Imdex::UserController.new(session, settings.config)
-  haml :directory, locals: { directory: dir_controller, user: user_controller }
+  controller = Imdex::DirectoryController.new(directory, user, settings.config)
+  haml :directory, locals: { directory: controller, user: user }
 end

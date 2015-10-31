@@ -6,7 +6,7 @@ module Imdex
     end
 
     def valid?
-      not @session[:user].empty?
+      not @session[:user].nil?
     end
 
     def user
