@@ -6,12 +6,12 @@
 %header
   %h1= "#{ directory.name } (#{ directory.count })"
   %aside
-    - if session[:user]
+    - if user.valid?
       %form{ method: :post, action: '/logout' }
         %p
-          %img.avatar{ src: session[:avatar], alt: "#{ session[:name] }'s avatar" }
+          %img.avatar{ src: user.avatar, alt: "#{ user.name }'s avatar" }
           = 'Logged in as '
-          %span.logged-in= session[:name]
+          %span{ class: user.role }= user.name
           %button{ type: :submit }= 'Logout'
     - else
       %form{ method: :get, action: '/auth/github' }

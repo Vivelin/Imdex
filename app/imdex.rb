@@ -1,12 +1,13 @@
 require 'sinatra'
 require 'better_errors'
-require 'yaml'
 require 'tilt/sass'
 require 'tilt/haml'
 
 require_relative 'helpers'
+require_relative 'config'
 require_relative 'directory'
 require_relative 'directory_controller'
+require_relative 'user_controller'
 
 helpers Imdex::Helpers
 
@@ -16,13 +17,11 @@ configure :development do
 end
 
 configure do
-  config = {}
-  config = YAML.load_file('config.yml') if File.file?('config.yml')
-  set :basedir, File.expand_path(config['basedir'] || 'public')
+  set :config, Imdex::Config.new('config.yml')
 
   set :views, 'templates'
   set :root, File.expand_path(File.dirname(__dir__))
-  set :public_folder, settings.basedir
+  set :public_folder, settings.config.basedir
   set :haml, escape_html: true
 end
 
@@ -64,8 +63,8 @@ end
 
 get '/*' do
   requested_path = URI.decode(request.path_info[1..-1])
-  path = File.expand_path(requested_path, settings.basedir)
-  pass unless path.start_with?(settings.basedir)
+  path = File.expand_path(requested_path, settings.config.basedir)
+  pass unless path.start_with?(settings.config.basedir)
   pass unless File.exist?(path)
 
   # Serve files when nginx for some reason refuses to do so, e.g. Cave Story+
@@ -75,6 +74,7 @@ get '/*' do
   end
 
   directory = Imdex::Directory.new(path)
-  controller = Imdex::DirectoryController.new(directory, settings)
-  haml :directory, locals: { directory: controller }
+  dir_controller = Imdex::DirectoryController.new(directory, settings.config)
+  user_controller = Imdex::UserController.new(session, settings.config)
+  haml :directory, locals: { directory: dir_controller, user: user_controller }
 end

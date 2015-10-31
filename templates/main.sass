@@ -2,17 +2,21 @@ $tile_size: 250px
 
 // http://flatuicolors.com/ is pretty neat:
 $clouds: #ecf0f1
+$silver: #bdc3c7
 $concrete: #95a5a6
 $asbestos: #7f8c8d
 $wet_asphalt: #34495e
 $midnight_blue: #2c3e50
 $amethyst: #9b59b6
+$wisteria: #8e44ad
 $peter_river: #3498db
 $belize_hole: #2980b9
 $emerald: #2ecc71
+$nephritis: #27ae60
 $turquoise: #1abc9c
 $sun_flower: #f1c40f
 $carrot: #e67e22
+$pumpkin: #d35400
 $alizarin: #e74c3c
 $pomegranate: #c0392b
 
@@ -20,14 +24,14 @@ body
     margin: 0
     padding: 0
 
-    background-color: $concrete
+    background-color: $wet_asphalt
     color: $clouds
     font: 400 100%/1.6 'Open Sans', 'Segoe UI', sans-serif
 
     header
         padding: .5em 1em
 
-        background-color: $asbestos
+        background-color: $midnight_blue
 
         h1
             display: inline-block // Leave some room for other stuff
@@ -43,9 +47,6 @@ body
             p
                 display: inline-block
                 margin: 0
-
-            .logged-in
-                font: 600 1em/1.6 'Open Sans', 'Segoe UI', sans-serif
 
             form
                 display: inline-block
@@ -67,17 +68,17 @@ button
     margin: 0 .5em
     padding: .25em .5em
 
-    background-color: $midnight_blue
-    color: $clouds
+    background-color: $clouds
+    color: $wet_asphalt
     font: 600 1em/1.6 'Open Sans', 'Segoe UI', sans-serif
     border: none
 
     cursor: pointer
 
 button:hover, button:active
-    background-color: $wet_asphalt
+    background-color: $silver
 button:focus
-    outline: 2px solid $clouds
+    outline: 2px solid $wet_asphalt
 
 .tile
     position: relative
@@ -127,19 +128,30 @@ button:focus
 .tile:focus
     outline: .25em solid $belize_hole
 
-.tile:nth-child(8n+1)
-    background-color: $wet_asphalt
-.tile:nth-child(8n+2)
+.tile:nth-child(7n+7)
     background-color: $amethyst
-.tile:nth-child(8n+3)
+.tile:nth-child(7n+6)
     background-color: $peter_river
-.tile:nth-child(8n+4)
-    background-color: $emerald
-.tile:nth-child(8n+5)
+.tile:nth-child(7n+5)
     background-color: $turquoise
-.tile:nth-child(8n+6)
+.tile:nth-child(7n+4)
+    background-color: $emerald
+.tile:nth-child(7n+3)
     background-color: $sun_flower
-.tile:nth-child(8n+7)
+.tile:nth-child(7n+2)
     background-color: $carrot
-.tile:nth-child(8n+8)
+.tile:nth-child(7n+1)
     background-color: $alizarin
+
+.owner
+    color: $carrot
+    font-weight: 600
+.admin
+    color: $nephritis
+    font-weight: 600
+.recognized
+    color: $peter_river
+    font-weight: 600
+.guest
+    color: inherit
+    font-weight: 600
