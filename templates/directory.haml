@@ -13,7 +13,7 @@
     - if user.valid?
       %form{ method: :post, action: '/logout' }
         %p
-          %img.avatar{ src: user.avatar, alt: "#{ user.name }'s avatar" }
+          %img.avatar{ src: user.avatar, alt: "#{ user.name }'s avatar", class: user.role }
           = 'Logged in as '
           %span{ class: user.role }= user.name
           %button{ type: :submit }= 'Logout'
