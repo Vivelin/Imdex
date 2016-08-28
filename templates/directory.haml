@@ -3,6 +3,10 @@
 %link{ rel: :stylesheet, type: 'text/css', href: '/styles/main' }
 %script{ src: '/assets/blazy.min.js' }
 
+- unless directory.tile_src.nil?
+  :css
+    html { background-image: url('/#{ css_url(directory.tile_src) }') }
+
 %header
   %h1= "#{ directory.name } (#{ directory.count })"
   %aside
