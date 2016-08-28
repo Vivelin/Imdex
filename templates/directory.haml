@@ -5,7 +5,7 @@
 
 - unless directory.tile_src.nil?
   :css
-    html { background-image: url('/#{ css_url(directory.tile_src) }') }
+    html { background-image: url('../#{ css_url(directory.tile_src) }') }
 
 %header
   %h1= "#{ directory.name } (#{ directory.count })"
